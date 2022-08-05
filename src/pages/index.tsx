@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import styles from './styles/Home.module.css'
+import styles from '../@styles/Home.module.css'
 import Link from 'next/link';
 
 const Home: NextPage = () => {
