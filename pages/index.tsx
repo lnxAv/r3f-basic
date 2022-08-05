@@ -3,7 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import styles from '../styles/Home.module.css'
+import styles from './styles/Home.module.css'
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   const {t, i18n} = useTranslation('common')
@@ -17,6 +18,9 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1>{t(`test`)}</h1>
+        <Link href="/" locale="fr">
+          To /fr/another
+        </Link>
       </main>
 
       <footer className={styles.footer}>
