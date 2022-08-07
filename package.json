@@ -22,7 +22,6 @@
     "next-pwa": "^5.5.5",
     "r3f-perf": "^6.4.2",
     "react": "18.2.0",
-    "react-dat-gui": "^4.1.1",
     "react-dom": "18.2.0",
     "styled-components": "^5.3.5",
     "three": "^0.143.0",
