@@ -1,22 +1,22 @@
 /** @type {import('next').NextConfig} */
 // Plugins
-const withPlugins = require('next-compose-plugins');
+const withPlugins = require('next-compose-plugins')
 const withPWA = require('next-pwa')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
 // Imports
-const { i18n } = require('./next-i18next.config');
+const { i18n } = require('./next-i18next.config')
 
-// Notes: 
+// Notes:
 /**
  * Analzer: https://www.npmjs.com/package/@next/bundle-analyzer
  */
 const nextConfig = {
   reactStrictMode: true,
   compiler: {
-    styledComponents: true
+    styledComponents: true,
   },
   webpack(config, { isServer }) {
     // audio support
@@ -50,11 +50,8 @@ const nextConfig = {
   swcMinify: true,
   i18n,
   pwa: {
-    dest: 'public'
-  }
+    dest: 'public',
+  },
 }
 
-module.exports = withPlugins([
-  withBundleAnalyzer,
-  withPWA
-], nextConfig)
+module.exports = withPlugins([withBundleAnalyzer, withPWA], nextConfig)

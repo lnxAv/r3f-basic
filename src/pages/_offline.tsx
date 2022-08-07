@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 
-const _Offline: NextPage = ()=> (
+const _Offline: NextPage = () => (
   <>
     <Head>
       <title>next-pwa example</title>
