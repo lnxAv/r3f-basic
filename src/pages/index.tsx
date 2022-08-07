@@ -5,6 +5,8 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import styles from '../@styles/Home.module.css'
 import Link from 'next/link';
+import XCanvas from '../@components/x-canvas/x-canvas';
+import { Preload } from '@react-three/drei';
 
 const Home: NextPage = () => {
   const {t, i18n} = useTranslation('common')
@@ -21,6 +23,12 @@ const Home: NextPage = () => {
         <Link href="/" locale="fr">
           To /fr/another
         </Link>
+        <XCanvas>
+          <Preload/>
+          <mesh>
+            <boxGeometry></boxGeometry>
+          </mesh>
+        </XCanvas>
       </main>
 
       <footer className={styles.footer}>

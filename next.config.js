@@ -14,6 +14,10 @@ const { i18n } = require('./next-i18next.config');
  * Analzer: https://www.npmjs.com/package/@next/bundle-analyzer
  */
 const nextConfig = {
+  reactStrictMode: true,
+  compiler: {
+    styledComponents: true
+  },
   webpack(config, { isServer }) {
     // audio support
     config.module.rules.push({
