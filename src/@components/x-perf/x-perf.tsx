@@ -13,13 +13,21 @@ export interface XPerfStoreSlice{
 }
 
 export const XPerfHook: React.FC<XPerfProps> = ({id}) => {
-    // Grab Perf values and set's it in the store (if id matches selected canvas)
+    // Conditionally Grab r3f-Perf values and set's it in the Global Store
     const intervalRef = useRef<number>()
     const [setPerfData, selectedCanvas] = useGlobalStore((state) => [state.setPerfData, state.selectedCanvas])
     const _PERF = usePerf();
 
+    const condition: boolean = (
+        selectedCanvas === id
+    )
+
     const startUpdate = ()=> {
-        setPerfData(_PERF)
+        const intervalId = window.setInterval(()=>{
+            setPerfData(_PERF)
+            console.log('ok')
+        }, 1000)
+        intervalRef.current = intervalId
     }
 
     const stopUpdate =()=> {
@@ -28,8 +36,9 @@ export const XPerfHook: React.FC<XPerfProps> = ({id}) => {
     }
 
     useEffect(()=>{
-        const intervalId = window.setInterval(startUpdate, 1000)
-        intervalRef.current = intervalId
+        if(condition){
+            startUpdate()
+        }
         return () => {stopUpdate()}
     }, [selectedCanvas])
 
@@ -38,10 +47,14 @@ export const XPerfHook: React.FC<XPerfProps> = ({id}) => {
 
 
 export const XPerf: React.FC<XPerfProps & PerfProps> = ({id, ...props}) => {
-    // Conditionally shows XPerf
+    // Conditionally inject r3f-Perf
     const [selectedCanvas] = useGlobalStore((state) => [state.selectedCanvas])
 
-    return (selectedCanvas === id?
+    const condition: boolean = (
+        selectedCanvas === id
+    )
+
+    return (condition?
         <>
             <Perf {...props} />
             <XPerfHook id={id} />

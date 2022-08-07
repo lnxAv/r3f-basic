@@ -7,9 +7,11 @@ interface GlobalStore extends XPerfStoreSlice {
 }
 
 const useGlobalStore = create<GlobalStore>((set) => ({
-  value: '',
+  /* current selected canvas */
   selectedCanvas: '',
+  /* r3f-perf data */
   perfData: null,
+  // Setters & Dispatch
   setPerfData: (perfData) => set({perfData}),
   setSelectedCanvas: (selectedCanvas) => set({selectedCanvas})
 }))

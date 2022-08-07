@@ -16,6 +16,7 @@ border: 1px solid red;
   }
 `
 
+// Offer a special canvas injected with features
 export const XCanvas: React.FC<Props>  = (props)=> {
   const [canvas_id] = useState<string>(uniqueId('canvas-'))
   const [selectedCanvas, setSelectedCanvas] = useGlobalStore((state) => [state.selectedCanvas, state.setSelectedCanvas])
