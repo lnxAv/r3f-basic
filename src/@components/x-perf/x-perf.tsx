@@ -1,7 +1,7 @@
 import { Perf, PerfProps, usePerf } from 'r3f-perf'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { setInterval } from 'timers'
-import useGlobalStore from '../../../helpers/store'
+import {useGlobalStore} from '../../../helpers/store'
 
 interface XPerfProps {
   id: string
@@ -26,7 +26,6 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
   const startUpdate = () => {
     const intervalId = window.setInterval(() => {
       setPerfData(_PERF)
-      console.log('ok')
     }, 1000)
     intervalRef.current = intervalId
   }
@@ -56,7 +55,7 @@ export const XPerf: React.FC<XPerfProps & PerfProps> = ({ id, ...props }) => {
 
   return condition ? (
     <>
-      <Perf {...props} />
+      <Perf position='top-left' {...props} />
       <XPerfHook id={id} />
     </>
   ) : null

@@ -1,21 +1,23 @@
+import { XGUIStoreSlice } from './../src/@components/x-gui/x-gui';
 import { XPerfStoreSlice } from '../src/@components/x-perf/x-perf'
 import create from 'zustand'
 
-interface GlobalStore extends XPerfStoreSlice {
+interface GlobalStore extends XPerfStoreSlice, XGUIStoreSlice {
   selectedCanvas: string
   setSelectedCanvas: (id: string) => void
 }
 
-const useGlobalStore = create<GlobalStore>((set) => ({
-  /* current selected canvas */
+export const useGlobalStore = create<GlobalStore>((set) => ({
+  /* x-canvas tracked */
   selectedCanvas: '',
-  /* r3f-perf data */
+  /* x-perf data */
   perfData: null,
+  /* gui-store data */
+  guiStore: null,
   // Setters & Dispatch
   setPerfData: (perfData) => set({ perfData }),
   setSelectedCanvas: (selectedCanvas) => set({ selectedCanvas }),
+  setGUIStore: (guiStore) => set({guiStore})
 }))
 
-export const { getState: getGlobalState, setState: setGlobalState } =
-  useGlobalStore
-export default useGlobalStore
+export const { getState: getGlobalState, setState: setGlobalState } = useGlobalStore
