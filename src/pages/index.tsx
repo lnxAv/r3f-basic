@@ -15,7 +15,7 @@ import {
   useCursor,
 } from '@react-three/drei'
 import { Suspense } from 'react'
-import { useGlobalStore } from '../../helpers/store'
+import { useGlobalStore } from '../@helpers/store'
 import { useGUIControls } from '../@components/x-gui/x-gui'
 
 function Cube({

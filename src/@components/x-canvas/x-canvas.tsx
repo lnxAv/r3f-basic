@@ -3,7 +3,7 @@ import { Canvas, Props as CanvasProps } from '@react-three/fiber'
 import { XPerf } from '../x-perf/x-perf'
 import { uniqueId } from 'lodash'
 import styled from 'styled-components'
-import { useGlobalStore } from '../../../helpers/store'
+import { useGlobalStore } from '../../@helpers/store'
 
 interface Props {
   children: React.ReactNode

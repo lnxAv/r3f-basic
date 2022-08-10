@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { LevaPanel, useControls, useCreateStore } from 'leva'
 import { StoreType } from 'leva/dist/declarations/src/types'
 import _ from 'lodash'
-import { useGlobalStore } from '../../../helpers/store'
+import { useGlobalStore } from '../../@helpers/store'
 
 export interface XGUIStoreSlice {
   guiStore?: StoreType | null

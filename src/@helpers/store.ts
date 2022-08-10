@@ -1,5 +1,5 @@
-import { XGUIStoreSlice } from './../src/@components/x-gui/x-gui'
-import { XPerfStoreSlice } from '../src/@components/x-perf/x-perf'
+import { XGUIStoreSlice } from '../@components/x-gui/x-gui'
+import { XPerfStoreSlice } from '../@components/x-perf/x-perf'
 import create from 'zustand'
 
 interface GlobalStore extends XPerfStoreSlice, XGUIStoreSlice {
