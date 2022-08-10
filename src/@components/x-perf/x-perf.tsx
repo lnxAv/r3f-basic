@@ -1,7 +1,7 @@
 import { Perf, PerfProps, usePerf } from 'r3f-perf'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { setInterval } from 'timers'
-import {useGlobalStore} from '../../../helpers/store'
+import { useGlobalStore } from '../../../helpers/store'
 
 interface XPerfProps {
   id: string
@@ -55,7 +55,7 @@ export const XPerf: React.FC<XPerfProps & PerfProps> = ({ id, ...props }) => {
 
   return condition ? (
     <>
-      <Perf position='top-left' {...props} />
+      <Perf position='top-left' minimal {...props} />
       <XPerfHook id={id} />
     </>
   ) : null

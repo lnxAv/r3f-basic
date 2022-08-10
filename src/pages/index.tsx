@@ -6,32 +6,46 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import styles from '../@styles/Home.module.css'
 import Link from 'next/link'
 import XCanvas from '../@components/x-canvas/x-canvas'
-import { Edges, Environment, OrbitControls, Select, Sky, useCursor } from '@react-three/drei'
+import {
+  Edges,
+  Environment,
+  OrbitControls,
+  Select,
+  Sky,
+  useCursor,
+} from '@react-three/drei'
 import { Suspense } from 'react'
 import { useGlobalStore } from '../../helpers/store'
 import { useGUIControls } from '../@components/x-gui/x-gui'
 
-function Cube({ color = 'white', thickness = 2, roughness = 0.65, envMapIntensity = 1, transmission = 0, metalness = 0, ...props }) {
-  const [storeGUI] = useGlobalStore(state=>[state.guiStore])
+function Cube({
+  color = 'white',
+  thickness = 2,
+  roughness = 0.65,
+  envMapIntensity = 1,
+  transmission = 0,
+  metalness = 0,
+  ...props
+}) {
+  const [storeGUI] = useGlobalStore((state) => [state.guiStore])
   const [store, materialProps] = useGUIControls({
     color: { value: color },
     roughness: { value: roughness, min: 0, max: 1 },
     thickness: { value: thickness, min: -10, max: 10 },
     envMapIntensity: { value: envMapIntensity, min: 0, max: 10 },
     transmission: { value: transmission, min: 0, max: 1 },
-    ...(metalness !== undefined && { metalness: { value: metalness, min: 0, max: 1 } })
+    ...(metalness !== undefined && {
+      metalness: { value: metalness, min: 0, max: 1 },
+    }),
   })
   const isSelected = store.storeId === storeGUI?.storeId
-    
+
   return (
-    <mesh
-      {...props}
-      userData={{store}}
-    >
+    <mesh {...props} userData={{ store }}>
       <boxGeometry />
       <meshPhysicalMaterial {...materialProps} />
       <Edges visible={isSelected} scale={1.1} renderOrder={1000}>
-        <meshBasicMaterial transparent color="#333" depthTest={false} />
+        <meshBasicMaterial transparent color='#333' depthTest={false} />
       </Edges>
     </mesh>
   )
@@ -39,7 +53,7 @@ function Cube({ color = 'white', thickness = 2, roughness = 0.65, envMapIntensit
 
 const Home: NextPage = () => {
   const { t, i18n } = useTranslation('common')
-  const [setSelected] = useGlobalStore(state => [state.setGUIStore])
+  const [setGUIStore] = useGlobalStore((state) => [state.setGUIStore])
 
   return (
     <div className={styles.container}>
@@ -54,28 +68,80 @@ const Home: NextPage = () => {
           To /fr/another
         </Link>
         <button> test </button>
-        <XCanvas dpr={[1, 2]} orthographic camera={{ position: [-10, 10, 10], zoom: 100 }}>
+        <XCanvas
+          dpr={[1, 2]}
+          orthographic
+          camera={{ position: [-10, 10, 10], zoom: 100 }}
+        >
           <pointLight position={[10, 10, 10]} />
           <Suspense fallback={null}>
-            <Select multiple box onChange={(obj)=>{setSelected(obj[0]?.userData?.store)}} >
-              <Cube scale={0.9} position={[0, 0, 0]} color="#eb8686" envMapIntensity={2} />
-              <Cube scale={0.9} position={[-1, 0, 0]} color="orange" transmission={1} thickness={-2} envMapIntensity={5} />
-              <Cube scale={[1, 0.9, 0.9]} position={[0.05, 0, 1]} color="aquamarine" metalness={0} />
+            <Select
+              multiple
+              box
+              onChange={(obj) => {
+                setGUIStore(obj[0]?.userData?.store)
+              }}
+            >
+              <Cube
+                scale={0.9}
+                position={[0, 0, 0]}
+                color='#eb8686'
+                envMapIntensity={2}
+              />
+              <Cube
+                scale={0.9}
+                position={[-1, 0, 0]}
+                color='orange'
+                transmission={1}
+                thickness={-2}
+                envMapIntensity={5}
+              />
+              <Cube
+                scale={[1, 0.9, 0.9]}
+                position={[0.05, 0, 1]}
+                color='aquamarine'
+                metalness={0}
+              />
             </Select>
           </Suspense>
-          <Environment preset="city" />
-          <OrbitControls makeDefault rotateSpeed={2} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5} />
+          <Environment preset='city' />
+          <OrbitControls
+            makeDefault
+            rotateSpeed={2}
+            minPolarAngle={0}
+            maxPolarAngle={Math.PI / 2.5}
+          />
           <Sky />
         </XCanvas>
-        <XCanvas dpr={[1, 2]} orthographic camera={{ position: [-10, 10, 10], zoom: 100 }}>
+        <XCanvas
+          dpr={[1, 2]}
+          orthographic
+          camera={{ position: [-10, 10, 10], zoom: 100 }}
+        >
           <pointLight position={[10, 10, 10]} />
           <Suspense fallback={null}>
-            <Select multiple box onChange={(obj)=>{setSelected(obj[0]?.userData?.store)}} >
-              <Cube scale={[1, 0.9, 0.9]} position={[0.05, 0, 1]} color="aquamarine" metalness={0} />
+            <Select
+              multiple
+              box
+              onChange={(obj) => {
+                setGUIStore(obj[0]?.userData?.store)
+              }}
+            >
+              <Cube
+                scale={[1, 0.9, 0.9]}
+                position={[0.05, 0, 1]}
+                color='aquamarine'
+                metalness={0}
+              />
             </Select>
           </Suspense>
-          <Environment preset="city" />
-          <OrbitControls makeDefault rotateSpeed={2} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5} />
+          <Environment preset='city' />
+          <OrbitControls
+            makeDefault
+            rotateSpeed={2}
+            minPolarAngle={0}
+            maxPolarAngle={Math.PI / 2.5}
+          />
           <Sky />
         </XCanvas>
       </main>

@@ -1,4 +1,4 @@
-import { XGUIStoreSlice } from './../src/@components/x-gui/x-gui';
+import { XGUIStoreSlice } from './../src/@components/x-gui/x-gui'
 import { XPerfStoreSlice } from '../src/@components/x-perf/x-perf'
 import create from 'zustand'
 
@@ -17,7 +17,8 @@ export const useGlobalStore = create<GlobalStore>((set) => ({
   // Setters & Dispatch
   setPerfData: (perfData) => set({ perfData }),
   setSelectedCanvas: (selectedCanvas) => set({ selectedCanvas }),
-  setGUIStore: (guiStore) => set({guiStore})
+  setGUIStore: (guiStore) => set({ guiStore }),
 }))
 
-export const { getState: getGlobalState, setState: setGlobalState } = useGlobalStore
+export const { getState: getGlobalState, setState: setGlobalState } =
+  useGlobalStore

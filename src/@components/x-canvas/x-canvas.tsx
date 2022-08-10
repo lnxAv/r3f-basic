@@ -3,7 +3,7 @@ import { Canvas, Props as CanvasProps } from '@react-three/fiber'
 import { XPerf } from '../x-perf/x-perf'
 import { uniqueId } from 'lodash'
 import styled from 'styled-components'
-import {useGlobalStore} from '../../../helpers/store'
+import { useGlobalStore } from '../../../helpers/store'
 
 interface Props {
   children: React.ReactNode
@@ -33,7 +33,7 @@ export const XCanvas: React.FC<Props & CanvasProps> = (props) => {
 
   return (
     <XCanvasWrapper>
-      <button id={'canvas-toggle'}  onClick={handleSelection}>
+      <button id={'canvas-toggle'} onClick={handleSelection}>
         x-perf
       </button>
       <Canvas>
