@@ -38,8 +38,7 @@ function Cube({
       metalness: { value: metalness, min: 0, max: 1 },
     }),
   })
-  const isSelected = store.storeId === storeGUI?.storeId
-
+  const isSelected = !!store && store?.storeId === storeGUI?.storeId
   return (
     <mesh {...props} userData={{ store }}>
       <boxGeometry />

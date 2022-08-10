@@ -4,6 +4,8 @@ import { StoreType } from 'leva/dist/declarations/src/types'
 import _ from 'lodash'
 import { useGlobalStore } from '../../@helpers/store'
 
+// @refresh reset
+
 export interface XGUIStoreSlice {
   guiStore?: StoreType | null
   setGUIStore: (guiStore: StoreType | null | undefined) => void
@@ -22,7 +24,7 @@ export function XGUI() {
 }
 
 // Create a gui store to be assigned -
-export function useGUIControls(initialProps?: any) {
+function useGUIControlsDevelopment(initialProps?: any): [StoreType, any] {
   const [store] = useState(useCreateStore()) // new store for the given props
   const guiStore = useRef(useGlobalStore.getState().guiStore)
   useEffect(
@@ -48,4 +50,30 @@ export function useGUIControls(initialProps?: any) {
     [guiStore.current]
   )
   return [store, materialProps as typeof initialProps]
+}
+
+function useGUIControlsProduction(initialProps: any) : [null, any]{
+  const getPureProps = () => {
+    return Object.keys(initialProps).reduce(
+      (acc, key) => ({
+        ...acc,
+        [key]: initialProps[key].value,
+      }),
+      {}
+    )
+  }
+  const [pureProps] = useState(getPureProps() || {})
+
+  return [null, pureProps]
+}
+
+export function useGUIControls(initialProps?: any, ignoreDevMode?: boolean): [StoreType | null, any] {
+  const [app] = useGlobalStore(state=> [state.app])
+  // For the sake of performace, switching ignoreDevMode will give errors & require to re-mount
+  if(app.devMode || ignoreDevMode){
+    return useGUIControlsDevelopment(initialProps)
+  }
+  else{
+    return useGUIControlsProduction(initialProps)
+  }
 }

@@ -8,8 +8,8 @@ interface XPerfProps {
 }
 
 export interface XPerfStoreSlice {
-  perfData: ReturnType<typeof usePerf> | null
-  setPerfData: (perfData: ReturnType<typeof usePerf> | null) => void
+  perfData?: ReturnType<typeof usePerf>
+  setPerfData: (perfData?: ReturnType<typeof usePerf>) => void
 }
 
 export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
@@ -32,7 +32,7 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
 
   const stopUpdate = () => {
     window.clearInterval(intervalRef.current)
-    setPerfData(null)
+    setPerfData(undefined)
   }
 
   useEffect(() => {
@@ -49,9 +49,8 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
 
 export const XPerf: React.FC<XPerfProps & PerfProps> = ({ id, ...props }) => {
   // Conditionally inject r3f-Perf
-  const [selectedCanvas] = useGlobalStore((state) => [state.selectedCanvas])
-
-  const condition: boolean = selectedCanvas === id
+  const [selectedCanvas, app] = useGlobalStore((state) => [state.selectedCanvas, state.app])
+  const condition: boolean = !!selectedCanvas && (selectedCanvas === id) && app.devMode
 
   return condition ? (
     <>
