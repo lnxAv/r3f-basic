@@ -43,6 +43,7 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
     return () => {
       stopUpdate()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCanvas])
 
   return null
