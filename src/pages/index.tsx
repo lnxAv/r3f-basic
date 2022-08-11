@@ -10,13 +10,16 @@ import {
   Edges,
   Environment,
   OrbitControls,
+  Polyhedron,
   Select,
   Sky,
-  useCursor,
+  Sphere,
 } from '@react-three/drei'
+import { MeshProps } from '@react-three/fiber'
 import { Suspense } from 'react'
 import { useGlobalStore } from '../@helpers/store'
 import { useGUIControls } from '../@components/x-gui/x-gui'
+import { Color, PolyhedronGeometry } from 'three'
 
 function Cube({
   color = 'white',
@@ -46,6 +49,49 @@ function Cube({
       <Edges visible={isSelected} scale={1.1} renderOrder={1000}>
         <meshBasicMaterial transparent color='#333' depthTest={false} />
       </Edges>
+    </mesh>
+  )
+}
+
+const Dodeca = ({ ...props }: MeshProps) => {
+  const radius = 2
+  const vertices = [
+    [1, 1, 1], // 1
+    [1, 1, -1], // 2
+    [1, -1, 1], // 3
+    [1, -1, -1], // 4
+    [-1, 1, 1], // 5
+    [-1, 1, -1], // 6
+    [-1, -1, 1], // 7
+    [-1, -1, -1], // 8
+    [2, 0, 0], // 9
+    [-2, 0, 0], // 10
+    [0, 2, 0], // 11
+    [0, -2, 0], // 12
+    [0, 0, 2], // 13
+    [0, 0, -2], // 14
+  ].flat()
+  const indices = [
+    // Top
+    12, 2, 0, 8, 0, 2, 12, 6, 2, 11, 2, 6, 12, 4, 6, 9, 6, 4, 12, 0, 4, 10, 4,
+    0,
+    // Sides
+    11, 3, 2, 8, 2, 3, 8, 1, 0, 10, 0, 1, 10, 5, 4, 9, 4, 5, 9, 7, 6, 11, 6, 7,
+    // Bottom
+    13, 3, 7, 11, 7, 3, 13, 1, 3, 8, 3, 1, 13, 5, 1, 10, 1, 5, 13, 7, 5, 9, 5,
+    7,
+  ].flat()
+  const detail = 0
+  //const rhombic_dodeca = new PolyhedronGeometry(vertices,indices,radius,detail)
+
+  return (
+    <mesh>
+      <Polyhedron {...props} args={[vertices, indices, radius, detail]}>
+        <meshPhongMaterial color='black' wireframeLinewidth={5} wireframe />
+      </Polyhedron>
+      <Sphere scale={[1.5, 1.5, 1.5]}>
+        <meshPhongMaterial color='red' wireframeLinewidth={5} wireframe />
+      </Sphere>
     </mesh>
   )
 }
@@ -126,12 +172,7 @@ const Home: NextPage = () => {
                 setGUIStore(obj[0]?.userData?.store)
               }}
             >
-              <Cube
-                scale={[1, 0.9, 0.9]}
-                position={[0.05, 0, 1]}
-                color='aquamarine'
-                metalness={0}
-              />
+              <Dodeca scale={[1, 1, 1]} position={[0, 0, 0]} />
             </Select>
           </Suspense>
           <Environment preset='city' />
