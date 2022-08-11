@@ -35,9 +35,9 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
     setPerfData(undefined)
   }
 
-  useEffect(() => {  
+    useEffect (() => {  
     if (condition) {
-      startUpdate()
+        startUpdate()  
     }
     return () => {
       stopUpdate()
