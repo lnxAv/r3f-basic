@@ -1,7 +1,7 @@
 {
   "name": "r3f-basic",
   "version": "0.1.0",
-  "private": true,
+  "bin": "./.bin/cli.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +9,7 @@
     "lint": "next lint",
     "type-check": "tsc",
     "analyze": "ANALYZE=true yarn build",
-    "prepare": "husky install"
+    "prepare": "npx husky install"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^12.2.4",
