@@ -27,6 +27,7 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
     const intervalId = window.setInterval(() => {
       setPerfData(_PERF)
     }, 1000)
+
     intervalRef.current = intervalId
   }
 
@@ -35,22 +36,26 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
     setPerfData(undefined)
   }
 
-    useEffect (() => {  
+  useEffect(() => {
     if (condition) {
-        startUpdate()  
+      startUpdate()
     }
     return () => {
       stopUpdate()
     }
   }, [selectedCanvas])
 
-  return null 
+  return null
 }
 
 export const XPerf: React.FC<XPerfProps & PerfProps> = ({ id, ...props }) => {
   // Conditionally inject r3f-Perf
-  const [selectedCanvas, app] = useGlobalStore((state) => [state.selectedCanvas, state.app])
-  const condition: boolean = !!selectedCanvas && (selectedCanvas === id) && app.devMode
+  const [selectedCanvas, app] = useGlobalStore((state) => [
+    state.selectedCanvas,
+    state.app,
+  ])
+  const condition: boolean =
+    !!selectedCanvas && selectedCanvas === id && app.devMode
 
   return condition ? (
     <>
