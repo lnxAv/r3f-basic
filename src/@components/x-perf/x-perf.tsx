@@ -44,7 +44,7 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
     }
   }, [selectedCanvas])
 
-  return null
+  return null 
 }
 
 export const XPerf: React.FC<XPerfProps & PerfProps> = ({ id, ...props }) => {
