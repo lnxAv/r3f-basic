@@ -21,7 +21,7 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
   ])
   const _PERF = usePerf()
 
-  const condition: boolean = selectedCanvas === id
+  const condition: boolean = !!selectedCanvas && selectedCanvas === id
 
   const startUpdate = () => {
     const intervalId = window.setInterval(() => {

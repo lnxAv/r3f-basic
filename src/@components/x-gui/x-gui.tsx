@@ -70,10 +70,22 @@ function useGUIControlsProduction(initialProps: any) : [null, any]{
 export function useGUIControls(initialProps?: any, ignoreDevMode?: boolean): [StoreType | null, any] {
   const [app] = useGlobalStore(state=> [state.app])
   // For the sake of performace, switching ignoreDevMode will give errors & require to re-mount
+  /* eslint-disable */
   if(app.devMode || ignoreDevMode){
-    return useGUIControlsDevelopment(initialProps)
+    try {
+      return useGUIControlsDevelopment(initialProps)
+    } catch (error) {
+      console.warn( '== Force refresh == ' +  error)
+      return [null , {}]
+    }
   }
   else{
-    return useGUIControlsProduction(initialProps)
+    try {
+      return useGUIControlsProduction(initialProps)
+    } catch (error) {
+      console.warn('== Force refresh == ', error)
+      return [null , {}]
+    }
   }
+  /* eslint-enable */
 }
