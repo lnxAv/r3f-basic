@@ -1,7 +1,7 @@
 import { Perf, PerfProps, usePerf } from 'r3f-perf'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { setInterval } from 'timers'
-import { useGlobalStore } from '../../@helpers/store'
+import { useGlobalStore } from '../../../@helpers/x-store'
 
 interface XPerfProps {
   id: string
@@ -14,37 +14,43 @@ export interface XPerfStoreSlice {
 
 export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
   // Conditionally Grab r3f-Perf values and set's it in the Global Store
+  const [isReady, setIsReady] = useState<boolean>(true)
+  const _PERF = usePerf()
   const intervalRef = useRef<number>()
   const [setPerfData, selectedCanvas] = useGlobalStore((state) => [
     state.setPerfData,
     state.selectedCanvas,
   ])
-  const _PERF = usePerf()
 
   const condition: boolean = !!selectedCanvas && selectedCanvas === id
 
   const startUpdate = () => {
-    const intervalId = window.setInterval(() => {
+    setIsReady(false)
+    const intervalId = window.setTimeout(() => {
       setPerfData(_PERF)
-    }, 1000)
-
+      setIsReady(true)
+    }, 300)
     intervalRef.current = intervalId
   }
 
   const stopUpdate = () => {
-    window.clearInterval(intervalRef.current)
+    window.clearTimeout(intervalRef.current)
     setPerfData(undefined)
   }
 
   useEffect(() => {
-    if (condition) {
+    if (condition && isReady) {
       startUpdate()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [_PERF])
+
+  useEffect(() => {
     return () => {
       stopUpdate()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCanvas])
+  }, [condition])
 
   return null
 }
@@ -60,7 +66,13 @@ export const XPerf: React.FC<XPerfProps & PerfProps> = ({ id, ...props }) => {
 
   return condition ? (
     <>
-      <Perf position='top-left' minimal {...props} />
+      <Perf
+        position='top-left'
+        minimal
+        {...props}
+        /* @ts-ignore */
+        customData={{ value: 0, name: selectedCanvas, info: 'id' }}
+      />
       <XPerfHook id={id} />
     </>
   ) : null

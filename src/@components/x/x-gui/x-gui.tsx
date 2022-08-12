@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { LevaPanel, useControls, useCreateStore } from 'leva'
 import { StoreType } from 'leva/dist/declarations/src/types'
 import _ from 'lodash'
-import { useGlobalStore } from '../../@helpers/store'
+import { useGlobalStore } from '../../../@helpers/x-store'
 
 // @refresh reset
 
@@ -18,7 +18,7 @@ export function XGUI() {
     <LevaPanel
       neverHide
       store={guiStore}
-      titleBar={{ title: guiStore?.storeId }}
+      titleBar={{ title: 'store : ' + guiStore?.storeId }}
     />
   )
 }
@@ -52,7 +52,7 @@ function useGUIControlsDevelopment(initialProps?: any): [StoreType, any] {
   return [store, materialProps as typeof initialProps]
 }
 
-function useGUIControlsProduction(initialProps: any) : [null, any]{
+function useGUIControlsProduction(initialProps: any): [null, any] {
   const getPureProps = () => {
     return Object.keys(initialProps).reduce(
       (acc, key) => ({
@@ -67,24 +67,26 @@ function useGUIControlsProduction(initialProps: any) : [null, any]{
   return [null, pureProps]
 }
 
-export function useGUIControls(initialProps?: any, ignoreDevMode?: boolean): [StoreType | null, any] {
-  const [app] = useGlobalStore(state=> [state.app])
+export function useGUIControls(
+  initialProps?: any,
+  ignoreDevMode?: boolean
+): [StoreType | null, any] {
+  const [app] = useGlobalStore((state) => [state.app])
   // For the sake of performace, switching ignoreDevMode will give errors & require to re-mount
   /* eslint-disable */
-  if(app.devMode || ignoreDevMode){
+  if (app.devMode || ignoreDevMode) {
     try {
       return useGUIControlsDevelopment(initialProps)
     } catch (error) {
-      console.warn( '== Force refresh == ' +  error)
-      return [null , {}]
+      console.warn('== Force refresh == ' + error)
+      return [null, {}]
     }
-  }
-  else{
+  } else {
     try {
       return useGUIControlsProduction(initialProps)
     } catch (error) {
       console.warn('== Force refresh == ', error)
-      return [null , {}]
+      return [null, {}]
     }
   }
   /* eslint-enable */

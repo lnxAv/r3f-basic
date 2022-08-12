@@ -1,23 +1,23 @@
-import { XGUIStoreSlice } from '../@components/x-gui/x-gui'
-import { XPerfStoreSlice } from '../@components/x-perf/x-perf'
+import { XGUIStoreSlice } from '../@components/x/x-gui/x-gui'
+import { XPerfStoreSlice } from '../@components/x/x-perf/x-perf'
 import create from 'zustand'
 
 type XAppStoreSlice = {
-    app: {
-      // @special variables
-      devMode: boolean;
-      // @special actions
-    }
+  app: {
+    // @special variables
+    devMode: boolean
+    // @special actions
+  }
 }
 
-interface GlobalStore extends  XAppStoreSlice, XPerfStoreSlice, XGUIStoreSlice{
+interface GlobalStore extends XAppStoreSlice, XPerfStoreSlice, XGUIStoreSlice {
   selectedCanvas: string
   setSelectedCanvas: (id: string) => void
 }
 
 export const useGlobalStore = create<GlobalStore>((set) => ({
   /* APP */
-  app:{
+  app: {
     // devMode - for optimization, will require re-mount on certain features (just refresh the page)
     devMode: process.env.NODE_ENV === 'development' ? true : false,
   },
