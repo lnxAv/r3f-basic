@@ -5,6 +5,7 @@ import { useGlobalStore } from '../../../@helpers/x-store'
 
 interface XPerfProps {
   id: string
+  ignoreDevMode?: boolean
 }
 
 export interface XPerfStoreSlice {
@@ -55,14 +56,18 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
   return null
 }
 
-export const XPerf: React.FC<XPerfProps & PerfProps> = ({ id, ...props }) => {
+export const XPerf: React.FC<XPerfProps & PerfProps> = ({
+  id,
+  ignoreDevMode = false,
+  ...props
+}) => {
   // Conditionally inject r3f-Perf
   const [selectedCanvas, app] = useGlobalStore((state) => [
     state.selectedCanvas,
     state.app,
   ])
   const condition: boolean =
-    !!selectedCanvas && selectedCanvas === id && app.devMode
+    !!selectedCanvas && selectedCanvas === id && (app.devMode || ignoreDevMode)
 
   return condition ? (
     <>

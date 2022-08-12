@@ -27,11 +27,12 @@ export function XGUI() {
 function useGUIControlsDevelopment(initialProps?: any): [StoreType, any] {
   const [store] = useState(useCreateStore()) // new store for the given props
   const guiStore = useRef(useGlobalStore.getState().guiStore)
-  useEffect(
-    () =>
-      useGlobalStore.subscribe((state) => (guiStore.current = state.guiStore)),
-    []
-  )
+  useEffect(() => {
+    useGlobalStore.subscribe((state) => (guiStore.current = state.guiStore))
+    return () => {
+      store.dispose()
+    }
+  }, [])
   // From: https://codesandbox.io/s/ny3p4?file=/src/App.js
   // User: drcmda
   // Hacky workaround to trick Leva into being able to handle mutiple stores ...
