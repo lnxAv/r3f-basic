@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Canvas, Props as CanvasProps } from '@react-three/fiber'
-import { XPerf } from '../x-perf/x-perf'
+import { XPerf } from '../x-perf/component'
 import { uniqueId } from 'lodash'
 import styled from 'styled-components'
 import { useGlobalStore } from '../../../@helpers/x-store'
-
-interface Props {
-  children: React.ReactNode
-}
+import { XCanvasProps } from './types'
 
 const XCanvasWrapper = styled.div<{ devMode: boolean }>`
   position: relative;
+  width: inherit;
+  height: inherit;
+  max-width: inherit;
+  max-height: inherit;
   button#canvas-toggle {
     position: absolute;
     display: none;
@@ -35,7 +36,12 @@ const XCanvasWrapper = styled.div<{ devMode: boolean }>`
 `
 
 // Offer a special canvas injected with features
-export const XCanvas: React.FC<Props & CanvasProps> = (props) => {
+export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
+  children,
+  style,
+  color,
+  ...props
+}) => {
   const [canvas_id, setCanvasId] = useState<string>('')
   const [app, selectedCanvas, setSelectedCanvas] = useGlobalStore((state) => [
     state.app,
@@ -51,13 +57,14 @@ export const XCanvas: React.FC<Props & CanvasProps> = (props) => {
   }
 
   return (
-    <XCanvasWrapper devMode={app.devMode}>
+    <XCanvasWrapper style={style} devMode={app.devMode}>
       <button id={'canvas-toggle'} onClick={handleSelection}>
         {canvas_id ? canvas_id : ''}
       </button>
-      <Canvas>
+      <Canvas {...props}>
+        {color ? <color attach='background' args={[color]} /> : null}
         <XPerf id={canvas_id} />
-        {props.children}
+        {children}
       </Canvas>
     </XCanvasWrapper>
   )

@@ -4,26 +4,21 @@ import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Link from 'next/link'
-import XCanvas from '../../@components/x/x-canvas/x-canvas'
+import XCanvas from '../../@components/x/x-canvas/component'
 import {
-  Backdrop,
-  Cloud,
   ContactShadows,
   Edges,
   Environment,
   Float,
   OrbitControls,
   Select,
-  Shadow,
   Sky,
-  Stage,
-  Stars,
 } from '@react-three/drei'
 import { Suspense } from 'react'
 import { useGlobalStore } from '../../@helpers/x-store'
-import { useGUIControls } from '../../@components/x/x-gui/x-gui'
+import { useGUIControls } from '../../@components/x/x-gui/component'
 import { RhombicDodecaedron } from '../../@components/x/x-shapes/rhombic_dodecahedron'
-import { AmbientLight } from 'three'
+import { XPage } from '../type'
 
 function TrackedMesh({
   color = 'white',
@@ -56,7 +51,7 @@ function TrackedMesh({
   )
 }
 
-const Home: NextPage = () => {
+const Home: XPage = () => {
   const { t, i18n } = useTranslation('common')
   const [setGUIStore] = useGlobalStore((state) => [state.setGUIStore])
   const [selected] = useGlobalStore((state) => [state.selectedCanvas])
@@ -77,7 +72,7 @@ const Home: NextPage = () => {
         <XCanvas
           dpr={[1, 2]}
           orthographic
-          camera={{ position: [-10, 10, 10], zoom: 100, fov: 75 }}
+          camera={{ position: [5, 6, 15], zoom: 40, fov: 75 }}
         >
           <ambientLight />
           <Suspense fallback={null}>

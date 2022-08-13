@@ -6,11 +6,6 @@ import { useGlobalStore } from '../../../@helpers/x-store'
 
 // @refresh reset
 
-export interface XGUIStoreSlice {
-  guiStore?: StoreType | null
-  setGUIStore: (guiStore: StoreType | null | undefined) => void
-}
-
 // Renders gui store asigned -
 export function XGUI() {
   const [guiStore] = useGlobalStore((state) => [state.guiStore])
@@ -32,6 +27,7 @@ function useGUIControlsDevelopment(initialProps?: any): [StoreType, any] {
     return () => {
       store.dispose()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   // From: https://codesandbox.io/s/ny3p4?file=/src/App.js
   // User: drcmda

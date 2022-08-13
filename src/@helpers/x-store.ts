@@ -1,19 +1,5 @@
-import { XGUIStoreSlice } from '../@components/x/x-gui/x-gui'
-import { XPerfStoreSlice } from '../@components/x/x-perf/x-perf'
 import create from 'zustand'
-
-type XAppStoreSlice = {
-  app: {
-    // @special variables
-    devMode: boolean
-    // @special actions
-  }
-}
-
-interface GlobalStore extends XAppStoreSlice, XPerfStoreSlice, XGUIStoreSlice {
-  selectedCanvas: string
-  setSelectedCanvas: (id: string) => void
-}
+import { GlobalStore } from './types'
 
 export const useGlobalStore = create<GlobalStore>((set) => ({
   /* APP */

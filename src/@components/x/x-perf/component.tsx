@@ -1,19 +1,9 @@
 import { Perf, PerfProps, usePerf } from 'r3f-perf'
 import React, { useEffect, useRef, useState } from 'react'
-import { setInterval } from 'timers'
 import { useGlobalStore } from '../../../@helpers/x-store'
+import { Props } from './types'
 
-interface XPerfProps {
-  id: string
-  ignoreDevMode?: boolean
-}
-
-export interface XPerfStoreSlice {
-  perfData?: ReturnType<typeof usePerf>
-  setPerfData: (perfData?: ReturnType<typeof usePerf>) => void
-}
-
-export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
+export const XPerfHook: React.FC<Props> = ({ id }) => {
   // Conditionally Grab r3f-Perf values and set's it in the Global Store
   const [isReady, setIsReady] = useState<boolean>(true)
   const _PERF = usePerf()
@@ -56,7 +46,7 @@ export const XPerfHook: React.FC<XPerfProps> = ({ id }) => {
   return null
 }
 
-export const XPerf: React.FC<XPerfProps & PerfProps> = ({
+export const XPerf: React.FC<Props & PerfProps> = ({
   id,
   ignoreDevMode = false,
   ...props

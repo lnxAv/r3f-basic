@@ -1,8 +1,9 @@
+import { Line } from '@react-three/drei'
 import { MeshProps } from '@react-three/fiber'
 import { forwardRef, Ref } from 'react'
-import { MeshReffered } from '../../../@helpers/x-types'
+import { GroupReffered, MeshReffered } from '../../../@helpers/types'
 
-export const args = {
+export const args: PolyhedronArgs = {
   vertices: [
     [1, 1, 1], // 0
     [1, 1, -1], // 1
@@ -18,7 +19,7 @@ export const args = {
     [0, -2, 0], // 11
     [0, 0, 2], // 12
     [0, 0, -2], // 13
-  ].flat(),
+  ],
   indices: [
     // Top
     12, 2, 0, 8, 0, 2, 12, 6, 2, 11, 2, 6, 12, 4, 6, 9, 6, 4, 12, 0, 4, 10, 4,
@@ -29,26 +30,52 @@ export const args = {
     13, 3, 7, 11, 7, 3, 13, 1, 3, 8, 3, 1, 13, 5, 1, 10, 1, 5, 13, 7, 5, 9, 5,
     7,
   ],
+  indicesLines: [
+    // Line 1
+    [0, 10, 4, 12, 0, 8, 3],
+    // Line 2
+    [1, 10, 5, 13, 1, 8, 2],
+    // Line 3
+    [6, 12, 2, 11, 6, 9, 5],
+    // Line 4
+    [7, 13, 3, 11, 7, 9, 4],
+  ],
   radius: 1,
   detail: 0,
 }
-
-type ShapeType = { radius?: number; detail?: number }
 
 export const RhombicDodecaedron = forwardRef(function RhombicDodecaedron(
   {
     radius = args.radius,
     detail = args.detail,
     ...props
-  }: MeshProps & ShapeType,
+  }: MeshProps & PolyhedronType,
   ref: Ref<MeshReffered>
 ) {
   return (
     <mesh ref={ref} {...props}>
       <polyhedronBufferGeometry
-        args={[args.vertices, args.indices, radius, detail]}
+        args={[args.vertices.flat(), args.indices, radius, detail]}
       />
       {props.children}
     </mesh>
   )
 })
+
+export const RhombicDodecaedronLines = forwardRef(
+  function RhombicDodecaedronLines(
+    { ...props }: LineType,
+    ref: Ref<GroupReffered>
+  ) {
+    return (
+      <group ref={ref}>
+        {args.indicesLines?.map((value, index) => {
+          const points = value.map((indice) => {
+            return args.vertices[indice]
+          })
+          return <Line key={`line-${index}`} points={points} {...props} />
+        })}
+      </group>
+    )
+  }
+)
