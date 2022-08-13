@@ -9,6 +9,9 @@
 **/public/sw.js.map
 **/public/worker-*.js
 
+# lint
+.eslintcache
+
 # testing
 /coverage
 
