@@ -41,5 +41,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated
 .eslintcache
 public/sw.js.map
