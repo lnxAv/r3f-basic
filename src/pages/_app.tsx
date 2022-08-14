@@ -5,6 +5,7 @@ import { XGUI } from '../@components/x/x-gui/component'
 import { NextComponentType } from 'next'
 import XCanvas from '../@components/x/x-canvas/component'
 import { XPage } from './type'
+import { ScrollControls } from '@react-three/drei'
 
 type XAppProps = AppProps & {
   Component: NextComponentType & XPage // add auth type
@@ -13,9 +14,9 @@ type XAppProps = AppProps & {
 function MyApp({ Component, pageProps }: XAppProps) {
   return (
     <>
-      <Component {...pageProps} />
       <XGUI />
-      {Component.r3f ? (
+      {!!!Component.r3f && <Component {...pageProps} />}
+      {!!Component.r3f && (
         <XCanvas
           style={{
             position: 'absolute',
@@ -25,10 +26,14 @@ function MyApp({ Component, pageProps }: XAppProps) {
             width: '100vw',
             height: '100vh',
           }}
+          html={{
+            content: <Component {...pageProps} />,
+            scrollControls: Component?.scrollControls,
+          }}
         >
           {Component.r3f(pageProps)}
         </XCanvas>
-      ) : null}
+      )}
     </>
   )
 }

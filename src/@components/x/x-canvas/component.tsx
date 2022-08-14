@@ -5,6 +5,8 @@ import { uniqueId } from 'lodash'
 import styled from 'styled-components'
 import { useGlobalStore } from '../../../@helpers/x-store'
 import { XCanvasProps } from './types'
+import { XHtml } from '../x-html/component'
+import { Html, Scroll, ScrollControls } from '@react-three/drei'
 
 const XCanvasWrapper = styled.div<{ devMode: boolean }>`
   position: relative;
@@ -37,6 +39,7 @@ const XCanvasWrapper = styled.div<{ devMode: boolean }>`
 
 // Offer a special canvas injected with features
 export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
+  html,
   children,
   style,
   color,
@@ -55,7 +58,7 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
   const handleSelection = () => {
     setSelectedCanvas(canvas_id !== selectedCanvas ? canvas_id : '')
   }
-
+  console.log(html?.scrollControls)
   return (
     <XCanvasWrapper style={style} devMode={app.devMode}>
       <button id={'canvas-toggle'} onClick={handleSelection}>
@@ -64,7 +67,17 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
       <Canvas {...props}>
         {color ? <color attach='background' args={[color]} /> : null}
         <XPerf id={canvas_id} />
-        {children}
+        <group>{children}</group>
+
+        {html ? (
+          <group>
+            <ScrollControls pages={0} {...html.scrollControls}>
+              <Scroll html>
+                <div>{html?.content}</div>
+              </Scroll>
+            </ScrollControls>
+          </group>
+        ) : null}
       </Canvas>
     </XCanvasWrapper>
   )

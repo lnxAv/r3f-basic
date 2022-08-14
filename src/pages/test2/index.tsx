@@ -1,6 +1,7 @@
 import { RhombicDodecaedronLines } from '../../@components/x/x-shapes/rhombic_dodecahedron'
 import { XPage } from '../type'
 import styled from 'styled-components'
+import { XHtml } from '../../@components/x/x-html/component'
 import {
   Html,
   Line,
@@ -27,7 +28,7 @@ const Test: XPage = (props) => {
   return (
     <>
       <Div>
-        <Link href={'/test2'}>Im the best link</Link>
+        <Link href={'/test'}>Im the best link</Link>
       </Div>
       <Div>
         <p>Im the second hottest div</p>
@@ -46,10 +47,7 @@ Test.r3f = (props) => {
     <>
       <OrbitControls />
       <RhombicDodecaedronLines lineWidth={3} />
-      <Html>
-        {' '}
-        <div>test</div>{' '}
-      </Html>
+      <Html> test </Html>
     </>
   )
 }
