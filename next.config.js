@@ -14,9 +14,16 @@ const { i18n } = require('./next-i18next.config')
  * Analzer: https://www.npmjs.com/package/@next/bundle-analyzer
  */
 const nextConfig = {
+  pageExtensions: ['page.tsx', 'api.ts', 'index.tsx'],
   reactStrictMode: true,
   compiler: {
     styledComponents: true,
+  },
+  reactStrictMode: true,
+  swcMinify: true,
+  i18n,
+  pwa: {
+    dest: 'public',
   },
   webpack(config, { isServer }) {
     // audio support
@@ -45,12 +52,6 @@ const nextConfig = {
     })
 
     return config
-  },
-  reactStrictMode: true,
-  swcMinify: true,
-  i18n,
-  pwa: {
-    dest: 'public',
   },
 }
 
