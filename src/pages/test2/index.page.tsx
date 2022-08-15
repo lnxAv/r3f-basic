@@ -4,9 +4,11 @@ import Link from 'next/link'
 import R3f from './scene'
 
 const Div = styled.div`
+  border: 1px solid red;
   padding-top: 50px;
   width: 50vw;
   height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
 `
 
 const Test2: XPage = (props) => {
@@ -23,7 +25,7 @@ const Test2: XPage = (props) => {
 }
 
 Test2.scrollControls = {
-  pages: 2,
+  pages: 0,
   damping: 3,
 }
 

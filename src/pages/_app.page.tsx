@@ -20,7 +20,6 @@ function MyApp({ Component, pageProps }: XAppProps) {
   useEffect(() => {
     // Give access to router for r3f
     setRouter(router)
-    console.log('router', router)
   }, [router])
 
   return (

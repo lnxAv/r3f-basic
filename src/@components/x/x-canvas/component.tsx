@@ -4,8 +4,8 @@ import { XPerf } from '../x-perf/component'
 import { uniqueId } from 'lodash'
 import { useGlobalStore } from '../../../@helpers/x-store'
 import { XCanvasProps } from './types'
-import { Scroll, ScrollControls } from '@react-three/drei'
 import XCanvasWrapper from './styled'
+import ScrollableHtml from './scrollableHtml/component'
 
 // Offer a special canvas injected with features
 export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
@@ -40,16 +40,7 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
         {color ? <color attach='background' args={[color]} /> : null}
         <XPerf id={canvas_id} />
         <group>{children}</group>
-
-        {html ? (
-          <group>
-            <ScrollControls {...html.scrollControls}>
-              <Scroll html>
-                <div>{html?.content}</div>
-              </Scroll>
-            </ScrollControls>
-          </group>
-        ) : null}
+        {html ? <ScrollableHtml {...html} /> : null}
       </Canvas>
     </XCanvasWrapper>
   )
