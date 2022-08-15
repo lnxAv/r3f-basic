@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react'
 import styled from 'styled-components'
 
 const XCanvasWrapper = styled.div<{ devMode: boolean }>`
@@ -28,4 +29,13 @@ const XCanvasWrapper = styled.div<{ devMode: boolean }>`
 `
       : ''}
 `
+export const fullScreenStyle: CSSProperties = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  zIndex: -1,
+  width: '100vw',
+  height: '100vh',
+}
+
 export default XCanvasWrapper

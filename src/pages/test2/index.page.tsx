@@ -6,7 +6,7 @@ import R3f from './scene'
 const Div = styled.div`
   border: 1px solid red;
   padding-top: 50px;
-  width: 50vw;
+  width: auto;
   height: 100vh;
   background: rgba(0, 0, 0, 0.3);
 `
@@ -24,17 +24,45 @@ const Test2: XPage = (props) => {
   )
 }
 
-Test2.scrollControls = {
-  pages: 0,
-  damping: 3,
-}
-
 Test2.r3f = (props) => {
   return (
     <>
       <R3f {...props}></R3f>
     </>
   )
+}
+
+Test2.htmlMotion = {
+  initial: {
+    y: -5,
+  },
+  animate: {
+    y: 0,
+  },
+  exit: {
+    y: -5,
+  },
+}
+
+Test2.r3fMotion = {
+  initial: {
+    y: -5,
+    x: 0,
+    scale: 0,
+  },
+  animate: {
+    y: 0,
+    x: 0,
+    scale: 1,
+  },
+  exit: {
+    x: 5,
+    scale: 0,
+  },
+}
+
+Test2.scrollControls = {
+  pages: 0,
 }
 
 export default Test2

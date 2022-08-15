@@ -4,7 +4,7 @@ import { XPerf } from '../x-perf/component'
 import { uniqueId } from 'lodash'
 import { useGlobalStore } from '../../../@helpers/x-store'
 import { XCanvasProps } from './types'
-import XCanvasWrapper from './styled'
+import XCanvasWrapper, { fullScreenStyle } from './styled'
 import ScrollableHtml from './scrollableHtml/component'
 
 // Offer a special canvas injected with features
@@ -13,6 +13,7 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
   children,
   style,
   color,
+  fullscreen,
   ...props
 }) => {
   const [canvas_id, setCanvasId] = useState<string>('')
@@ -32,7 +33,10 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
   }
 
   return (
-    <XCanvasWrapper style={style} devMode={app.devMode}>
+    <XCanvasWrapper
+      style={fullscreen ? fullScreenStyle : style}
+      devMode={app.devMode}
+    >
       <button id={'canvas-toggle'} onClick={handleSelection}>
         {canvas_id ? canvas_id : ''}
       </button>

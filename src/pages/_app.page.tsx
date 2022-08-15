@@ -8,6 +8,9 @@ import { XPage } from './type'
 import { useGlobalStore } from '../@helpers/x-store'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { AnimatePresence, motion } from 'framer-motion'
+import { motion as r3fMotion } from 'framer-motion-3d'
+import globalVariants from '../@styles/motion.variants'
 
 type XAppProps = AppProps & {
   Component: NextComponentType & XPage // add auth type
@@ -20,30 +23,52 @@ function MyApp({ Component, pageProps }: XAppProps) {
   useEffect(() => {
     // Give access to router for r3f
     setRouter(router)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
 
   return (
     <>
       <XGUI />
-      {!!!Component.r3f && <Component {...pageProps} />}
-      {!!Component.r3f && (
-        <XCanvas
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            zIndex: -1,
-            width: '100vw',
-            height: '100vh',
-          }}
-          html={{
-            content: <Component {...pageProps} />,
-            scrollControls: Component?.scrollControls,
-          }}
-        >
-          {Component.r3f(pageProps)}
-        </XCanvas>
-      )}
+      <AnimatePresence exitBeforeEnter>
+        {!!!Component.r3f ? ( // if doesn't contain r3f, render HTML only
+          <motion.div
+            key={router.pathname}
+            {...(!!Component.htmlMotion
+              ? { ...Component.htmlMotion }
+              : { ...globalVariants.default })}
+          >
+            <Component {...pageProps} />
+          </motion.div>
+        ) : !!Component.r3f ? ( // if contain r3f, render canvas with injected HTML & R3F
+          <XCanvas
+            fullscreen
+            html={{
+              content: (
+                <motion.div
+                  key={router.pathname}
+                  {...(!!Component.htmlMotion
+                    ? { ...Component.htmlMotion }
+                    : { ...globalVariants.default })}
+                >
+                  <Component {...pageProps} />
+                </motion.div>
+              ),
+              scrollControls: Component?.scrollControls,
+            }}
+          >
+            <AnimatePresence exitBeforeEnter>
+              <r3fMotion.scene
+                key={router.pathname}
+                {...(!!Component.r3fMotion
+                  ? { ...Component.r3fMotion }
+                  : { ...globalVariants.defaultScene })}
+              >
+                {Component.r3f(pageProps)}
+              </r3fMotion.scene>
+            </AnimatePresence>
+          </XCanvas>
+        ) : null}
+      </AnimatePresence>
     </>
   )
 }
