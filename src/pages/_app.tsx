@@ -5,13 +5,24 @@ import { XGUI } from '../@components/x/x-gui/component'
 import { NextComponentType } from 'next'
 import XCanvas from '../@components/x/x-canvas/component'
 import { XPage } from './type'
-import { ScrollControls } from '@react-three/drei'
+import { useGlobalStore } from '../@helpers/x-store'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 type XAppProps = AppProps & {
   Component: NextComponentType & XPage // add auth type
 }
 
 function MyApp({ Component, pageProps }: XAppProps) {
+  const router = useRouter()
+  const [setRouter] = useGlobalStore((state) => [state.setRouter])
+
+  useEffect(() => {
+    // Give access to router for r3f
+    setRouter(router)
+    console.log('router', router)
+  }, [router])
+
   return (
     <>
       <XGUI />

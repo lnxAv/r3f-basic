@@ -1,15 +1,10 @@
 import { RhombicDodecaedronLines } from '../../@components/x/x-shapes/rhombic_dodecahedron'
 import { XPage } from '../type'
 import styled from 'styled-components'
-import {
-  Html,
-  Line,
-  OrbitControls,
-  PresentationControls,
-  useScroll,
-} from '@react-three/drei'
+import { Html, OrbitControls, useScroll } from '@react-three/drei'
 import { useEffect } from 'react'
 import Link from 'next/link'
+import { useGlobalStore } from '../../@helpers/x-store'
 
 const Div = styled.div`
   padding-top: 50px;
@@ -18,16 +13,10 @@ const Div = styled.div`
 `
 
 const Test: XPage = (props) => {
-  const test = useScroll()
-
-  useEffect(() => {
-    console.log(test)
-  }, [test])
-
   return (
     <>
       <Div>
-        <Link href={'/test2'}>Im the best link</Link>
+        <Link href={'/test2'}>EVIIILLLL</Link>
       </Div>
       <Div>
         <p>Im the second hottest div</p>
@@ -41,16 +30,35 @@ Test.scrollControls = {
   damping: 3,
 }
 
-Test.r3f = (props) => {
+const R3f = (props: any) => {
+  const [router] = useGlobalStore((state) => [state.router])
+  const test = useScroll()
+
+  useEffect(() => {
+    console.log(test)
+  }, [test])
   return (
     <>
-      <OrbitControls />
+      <OrbitControls enableZoom={false} />
       <RhombicDodecaedronLines lineWidth={3} />
-      <Html>
+      <Html occlude position={[-1, -1, 0]}>
         {' '}
-        <div>test</div>{' '}
+        <div
+          onClick={(e) => router?.push('/test2', undefined, { shallow: true })}
+        >
+          test2
+        </div>{' '}
       </Html>
     </>
   )
 }
+
+Test.r3f = (props) => {
+  return (
+    <>
+      <R3f {...props}></R3f>
+    </>
+  )
+}
+
 export default Test
