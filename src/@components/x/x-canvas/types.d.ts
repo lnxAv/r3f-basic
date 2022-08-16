@@ -3,10 +3,12 @@ import { CSSProperties, MutableRefObject } from 'react'
 
 type XCanvasProps = {
   children: React.ReactNode
-  html?: {
-    content: JSX.Element | NextComponentType
-    scrollControls?: Partial<ScrollControlsProps>
-    ref?: MutableRefObject<any>
-  }
+  html?: XCanvasScrollableHTML
   style?: CSSProperties
+  fullscreen?: boolean
+}
+
+type XCanvasScrollableHTML = {
+  content: JSX.Element | NextComponentType
+  scrollControls?: Partial<ScrollControlsProps>
 }

@@ -12,7 +12,9 @@ const R3f = (props: any) => {
       <Html occlude position={[-1, -1, 0]}>
         {' '}
         <div
-          onClick={(e) => router?.push('/test2', undefined, { shallow: true })}
+          onClick={(e) =>
+            router?.push('/test2', undefined, { shallow: true, scroll: true })
+          }
         >
           test2
         </div>{' '}

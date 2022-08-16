@@ -49,6 +49,7 @@ function useGUIControlsDevelopment(initialProps?: any): [StoreType, any] {
   return [store, materialProps as typeof initialProps]
 }
 
+// Return usable values given but without the store
 function useGUIControlsProduction(initialProps: any): [null, any] {
   const getPureProps = () => {
     return Object.keys(initialProps).reduce(
@@ -69,9 +70,16 @@ export function useGUIControls(
   ignoreDevMode?: boolean
 ): [StoreType | null, any] {
   const [app] = useGlobalStore((state) => [state.app])
+  const [initDevMode] = useState<boolean>(!!ignoreDevMode)
   // For the sake of performace, switching ignoreDevMode will give errors & require to re-mount
   /* eslint-disable */
-  if (app.devMode || ignoreDevMode) {
+  useEffect(() => {
+    console.warn(
+      'For the sake of performace, switching ignoreDevMode will give errors & require to re-mount'
+    )
+  }, [ignoreDevMode])
+
+  if (app.devMode || initDevMode) {
     try {
       return useGUIControlsDevelopment(initialProps)
     } catch (error) {
