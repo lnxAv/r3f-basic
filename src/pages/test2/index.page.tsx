@@ -2,23 +2,81 @@ import { XPage } from '../type'
 import styled from 'styled-components'
 import Link from 'next/link'
 import R3f from './scene'
+import useSWR from 'swr'
+import { useGlobalStore } from '../../@helpers/x-store'
 
 const Div = styled.div`
-  border: 1px solid red;
+  padding: 25px;
   padding-top: 50px;
-  width: auto;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
+  width: 50vw;
+  height: auto;
+  overflow: auto;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `
 
+const useFetchShapeWiki = () => {
+  const url =
+    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Tetrahedron'
+  const fetcher = (...args: any) =>
+    fetch(args)
+      .then((res) => res.json())
+      .then((json) => extractAPIContents(json))
+  const { data, error } = useSWR(url, fetcher)
+
+  const extractAPIContents = (json: any) => {
+    const { pages } = json.query
+    return Object.keys(pages).map((id) => pages[id].extract)
+  }
+
+  return {
+    data: data,
+    isLoading: !error && !data,
+    error: error,
+  }
+}
+
 const Test2: XPage = (props) => {
+  const [router] = useGlobalStore((state) => [state.router])
+  const { data } = useFetchShapeWiki()
+
   return (
     <>
       <Div>
-        <Link href={'/test'}>Im the best link</Link>
+        <h1>Tetrahedron</h1>
+        {data?.map((content, i) => (
+          <div key={i} dangerouslySetInnerHTML={{ __html: content }} />
+        ))}
       </Div>
       <Div>
-        <p>Im the second hottest div</p>
+        <div>
+          Etiam ultricies lorem vel nisi luctus posuere. Phasellus ac tincidunt
+          purus, non vehicula turpis.
+        </div>
+        <div>
+          <a
+            href=''
+            style={{ color: 'white' }}
+            onClick={(e) => {
+              e.preventDefault()
+              router?.push('/test')
+            }}
+          >
+            {`< test />`}
+          </a>
+          <br />
+          <a
+            href=''
+            style={{ color: 'white' }}
+            onClick={(e) => {
+              e.preventDefault()
+              router?.push('/home')
+            }}
+          >
+            {`< home />`}
+          </a>
+        </div>
       </Div>
     </>
   )

@@ -11,7 +11,6 @@ export function XGUI() {
   const [guiStore] = useGlobalStore((state) => [state.guiStore])
   return (
     <LevaPanel
-      neverHide
       store={guiStore}
       titleBar={{ title: 'store : ' + guiStore?.storeId }}
     />

@@ -64,7 +64,7 @@ export const RhombicDodecaedron = forwardRef(function RhombicDodecaedron(
 
 export const RhombicDodecaedronLines = forwardRef(
   function RhombicDodecaedronLines(
-    { ...props }: LineType,
+    { children, ...props }: LineType,
     ref: Ref<GroupReffered>
   ) {
     return (
@@ -75,6 +75,7 @@ export const RhombicDodecaedronLines = forwardRef(
           })
           return <Line key={`line-${index}`} points={points} {...props} />
         })}
+        {children}
       </group>
     )
   }
