@@ -1,24 +1,83 @@
 import { XPage } from '../type'
-import { motion } from 'framer-motion'
+import useSWR from 'swr'
 import styled from 'styled-components'
 import Link from 'next/link'
 import R3f from './scene'
+import { useGlobalStore } from '../../@helpers/x-store'
 
 const Div = styled.div`
+  padding: 25px;
   padding-top: 50px;
   width: 50vw;
   height: 100vh;
-  border: 1px solid red;
+  overflow: auto;
+  scroll-snap-type: y mandatory;
+  @media only screen and (max-width: 600px) {
+    width: 100vw;
+  }
 `
 
+const useFetchShapeWiki = () => {
+  const url =
+    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Rhombic_dodecahedron'
+  const fetcher = (...args: any) =>
+    fetch(args)
+      .then((res) => res.json())
+      .then((json) => extractAPIContents(json))
+  const { data, error } = useSWR(url, fetcher)
+
+  const extractAPIContents = (json: any) => {
+    const { pages } = json.query
+    return Object.keys(pages).map((id) => pages[id].extract)
+  }
+
+  return {
+    data: data,
+    isLoading: !error && !data,
+    error: error,
+  }
+}
+
 const Test: XPage = (props) => {
+  const [router] = useGlobalStore((state) => [state.router])
+  const { data } = useFetchShapeWiki()
+  // render data
   return (
     <>
       <Div>
-        <Link href={'/test2'}>EVIIILLLL</Link>
+        <h1>Rhombic Dodecahedron</h1>
+        {data?.map((content, i) => (
+          <div key={i} dangerouslySetInnerHTML={{ __html: content }} />
+        ))}
       </Div>
       <Div>
-        <p>Im the second hottest div</p>
+        <div>
+          Etiam ultricies lorem vel nisi luctus posuere. Phasellus ac tincidunt
+          purus, non vehicula turpis.
+        </div>
+        <div>
+          <a
+            href=''
+            style={{ color: 'white' }}
+            onClick={(e) => {
+              e.preventDefault()
+              router?.push('/test2')
+            }}
+          >
+            {`< test2 />`}
+          </a>
+          <br />
+          <a
+            href=''
+            style={{ color: 'white' }}
+            onClick={(e) => {
+              e.preventDefault()
+              router?.push('/home')
+            }}
+          >
+            {`< home />`}
+          </a>
+        </div>
       </Div>
     </>
   )
@@ -66,7 +125,7 @@ Test.r3fMotion = {
 
 Test.scrollControls = {
   pages: 2,
-  damping: 8,
+  damping: 4,
 }
 
 export default Test

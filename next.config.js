@@ -25,7 +25,7 @@ const nextConfig = {
   pwa: {
     dest: 'public',
   },
-  webpack(config, { isServer }) {
+  webpack: (config, { isServer }) => {
     // audio support
     config.module.rules.push({
       test: /\.(ogg|mp3|wav|mpe?g)$/i,
@@ -50,7 +50,6 @@ const nextConfig = {
       exclude: /node_modules/,
       use: ['raw-loader', 'glslify-loader'],
     })
-
     return config
   },
 }
