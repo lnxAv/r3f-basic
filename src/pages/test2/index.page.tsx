@@ -34,12 +34,15 @@ Test2.r3f = (props) => {
 
 Test2.htmlMotion = {
   initial: {
+    opacity: 0,
     y: -5,
   },
   animate: {
+    opacity: 1,
     y: 0,
   },
   exit: {
+    opacity: 0,
     y: -5,
   },
 }
