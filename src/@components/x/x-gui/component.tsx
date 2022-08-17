@@ -11,6 +11,12 @@ export function XGUI() {
   const [guiStore] = useGlobalStore((state) => [state.guiStore])
   return (
     <LevaPanel
+      theme={{
+        colors: {
+          elevation1: '#22222bf7;',
+          elevation2: '#3a404535;',
+        },
+      }}
       store={guiStore}
       titleBar={{ title: 'store : ' + guiStore?.storeId }}
     />

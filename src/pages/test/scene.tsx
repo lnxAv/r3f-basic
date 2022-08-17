@@ -22,7 +22,7 @@ const R3f = (props: any) => {
 
   useFrame((time, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y = groupRef.current.rotation.y += 1 * delta
+      groupRef.current.rotation.y = groupRef.current.rotation.y += -0.6 * delta
     }
   })
 
@@ -31,15 +31,6 @@ const R3f = (props: any) => {
       <OrthographicCamera>
         <ambientLight />
         <group ref={groupRef} position={[0, 0, 0]}>
-          <RhombicDodecaedron scale={1} position={[0, 0, -2.5]}>
-            <meshPhysicalMaterial
-              color='#E3DAC9'
-              transmission={0.5}
-              thickness={0}
-              envMapIntensity={0}
-              roughness={0}
-            />
-          </RhombicDodecaedron>
           <RhombicDodecaedron scale={1} position={[0, -2.5, -2.5]}>
             <meshPhysicalMaterial
               color='#E3DAC9'
@@ -50,45 +41,29 @@ const R3f = (props: any) => {
             />
           </RhombicDodecaedron>
           <RhombicDodecaedronLines
+            color='#d92357'
             scale={0.5}
             lineWidth={3}
-            position={[0, 0, 2.5]}
+            position={[-2, 0, 2]}
           />
-          <RhombicDodecaedron scale={1} position={[0, -2.5, 2.5]}>
+          <RhombicDodecaedron scale={1} position={[-2, -2.5, 2]}>
             <meshPhysicalMaterial
-              color='#f0b57d'
+              color='#f0b57d3a'
               transmission={1}
               thickness={0}
               envMapIntensity={0}
               roughness={0}
             />
           </RhombicDodecaedron>
-          <RhombicDodecaedron scale={1} position={[2.5, 0, 0]}>
+          <RhombicDodecaedron scale={1} position={[2.5, 0, 2]}>
             <meshPhysicalMaterial
-              color='#cdee5f'
-              transmission={0}
-              envMapIntensity={0.2}
-              roughness={0}
+              color='#c31563'
+              transmission={0.9}
+              envMapIntensity={0.5}
+              metalness={0.4}
             />
           </RhombicDodecaedron>
-          <RhombicDodecaedron scale={1} position={[2.5, -2.5, 0]}>
-            <meshPhysicalMaterial
-              color='#E3DAC9'
-              transmission={1}
-              thickness={0}
-              envMapIntensity={0}
-              roughness={0}
-            />
-          </RhombicDodecaedron>
-          <RhombicDodecaedron scale={1} position={[-2.5, 0, 0]}>
-            <meshPhysicalMaterial
-              color='#e8c89f'
-              transmission={0}
-              envMapIntensity={0.2}
-              roughness={0}
-            />
-          </RhombicDodecaedron>
-          <RhombicDodecaedron scale={1} position={[-2.5, -2.5, 0]}>
+          <RhombicDodecaedron scale={1} position={[2.5, -2.5, 2]}>
             <meshPhysicalMaterial
               color='#E3DAC9'
               transmission={1}
@@ -98,15 +73,6 @@ const R3f = (props: any) => {
             />
           </RhombicDodecaedron>
           <GlitchShader />
-          <RhombicDodecaedron scale={1} position={[0, -2.5, 0]}>
-            <meshPhysicalMaterial
-              color='#E3DAC9'
-              transmission={1}
-              thickness={0}
-              envMapIntensity={0}
-              roughness={0}
-            />
-          </RhombicDodecaedron>
         </group>
       </OrthographicCamera>
     </>

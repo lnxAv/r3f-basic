@@ -66,10 +66,6 @@ const Home: XPage = () => {
       </Head>
       <main style={{ margin: 'auto', padding: '50px 10px' }}>
         <h1>{t(`lang`)}</h1>
-        <Link href='/' locale={i18n.language === 'fr' ? 'en' : 'fr'}>
-          Switch language
-        </Link>
-        <Link href='/test'>To Test</Link>
         <XCanvas
           dpr={[1, 2]}
           orthographic
@@ -144,9 +140,23 @@ const Home: XPage = () => {
         <div>
           Selected Canvas: {selected || 'Select a canvas'}
           <br />
-          Data:
+          Data: {Math.floor(perfData?.log?.fps) || 0} fps
           <br />
-          {perfData?.log?.fps || ''}
+        </div>
+        <div style={{ position: 'absolute', bottom: 0, padding: 5 }}>
+          + + +
+          <br />
+          <Link
+            style={{ fontSize: 10 }}
+            href='/home'
+            locale={i18n.language === 'fr' ? 'en' : 'fr'}
+          >
+            {`< home locale=${i18n.language === 'fr' ? 'en' : 'fr'} />`}
+          </Link>
+          <br />
+          <Link style={{ fontSize: 10 }} href='/test'>
+            {`< test />`}
+          </Link>
         </div>
       </main>
     </div>

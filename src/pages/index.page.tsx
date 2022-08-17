@@ -9,3 +9,36 @@ function RedirectPage() {
 }
 
 export default RedirectPage
+/*
+import { XPage } from './type'
+
+const Index: XPage = (props: any) => {
+
+  return (
+    <>
+      hello world
+    </>
+  )
+}
+
+Index.htmlMotion = {
+}
+
+Index.r3f = (props: any) => {
+  return (
+    <>
+    {
+      //return a scene
+    }
+    </>
+  )
+}
+
+Index.r3fMotion = {
+}
+
+Index.scrollControls = {
+}
+
+export default Index
+*/

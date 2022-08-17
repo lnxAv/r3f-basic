@@ -16,7 +16,6 @@ const XCanvasWrapper = styled.div<{ devMode: boolean }>`
       ? `
   border: 1px solid #181c20;
   background: #181c20;
-  color: #8c92a4;
   font-size: 12px;
   font-family: monospace;
   button#canvas-toggle {

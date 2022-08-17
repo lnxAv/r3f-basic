@@ -49,8 +49,29 @@ const Test: XPage = (props) => {
         {data?.map((content, i) => (
           <div key={i} dangerouslySetInnerHTML={{ __html: content }} />
         ))}
+        <br />
+        +
+        <br />
+        +
+        <br />+
+        <div style={{ position: 'absolute', bottom: 0 }}>
+          <br />
+          +
+          <br />
+          +
+          <br />
+          +
+          <br />
+          +
+          <br />v
+        </div>
       </Div>
       <Div>
+        <br />
+        ^
+        <br />
+        +
+        <br />+
         <div>
           Etiam ultricies lorem vel nisi luctus posuere. Phasellus ac tincidunt
           purus, non vehicula turpis.
