@@ -4355,6 +4355,11 @@
   "resolved" "https://registry.npmjs.org/glsl-noise/-/glsl-noise-0.0.0.tgz"
   "version" "0.0.0"
 
+"glsl-random@^0.0.5":
+  "integrity" "sha512-K2SA3OjnylV3ElXBjcGcXDk/aEGPfjxqIG3Wppau7+VkNAuBTok2BljOAriEgjt/lqT9QErOfgc7W2TdSwZAIg=="
+  "resolved" "https://registry.npmjs.org/glsl-random/-/glsl-random-0.0.5.tgz"
+  "version" "0.0.5"
+
 "glsl-resolve@0.0.1":
   "integrity" "sha512-xxFNsfnhZTK9NBhzJjSBGX6IOqYpvBHxxmo+4vapiljyGNCY0Bekzn0firQkQrazK59c1hYxMDxYS8MDlhw4gA=="
   "resolved" "https://registry.npmjs.org/glsl-resolve/-/glsl-resolve-0.0.1.tgz"
