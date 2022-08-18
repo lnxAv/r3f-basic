@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Link from 'next/link'
-import XCanvas from '../../@components/x/x-canvas/component'
+import XCanvas, { DynamicXCanvas } from '../../@components/x/x-canvas/component'
 import {
   ContactShadows,
   Edges,
@@ -17,7 +17,7 @@ import { Suspense } from 'react'
 import { useGlobalStore } from '../../@helpers/x-store'
 import { useGUIControls } from '../../@components/x/x-gui/component'
 import { RhombicDodecaedron } from '../../@components/x/x-shapes/rhombic_dodecahedron'
-import { XPage } from '../type'
+import { XPage } from '../x-page'
 import { motion } from 'framer-motion'
 
 function TrackedMesh({
@@ -66,7 +66,7 @@ const Home: XPage = () => {
       </Head>
       <main style={{ margin: 'auto', padding: '50px 10px' }}>
         <h1>{t(`lang`)}</h1>
-        <XCanvas
+        <DynamicXCanvas
           dpr={[1, 2]}
           orthographic
           camera={{ position: [5, 6, 15], zoom: 40, fov: 75 }}
@@ -136,7 +136,7 @@ const Home: XPage = () => {
             blur={1.5}
             far={1.5}
           />
-        </XCanvas>
+        </DynamicXCanvas>
         <div>
           Selected Canvas: {selected || 'Select a canvas'}
           <br />

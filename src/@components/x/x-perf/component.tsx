@@ -1,7 +1,42 @@
-import { Perf, PerfProps, usePerf } from 'r3f-perf'
+import dynamic from 'next/dynamic'
+import { PerfProps, usePerf } from 'r3f-perf'
 import React, { useEffect, useRef, useState } from 'react'
 import { useGlobalStore } from '../../../@helpers/x-store'
 import { Props } from './types'
+
+const Perf = dynamic<PerfProps>(() =>
+  import('r3f-perf').then((module) => module.Perf)
+)
+const DynamicXPerfHook = dynamic<Props & PerfProps>(() =>
+  import('./component').then((mod) => mod.XPerfHook)
+)
+
+export const XPerf: React.FC<Props & PerfProps> = ({
+  id,
+  ignoreDevMode = false,
+  ...props
+}) => {
+  // Conditionally use r3f-Perf
+  const [selectedCanvas, app] = useGlobalStore((state) => [
+    state.selectedCanvas,
+    state.app,
+  ])
+  const condition: boolean =
+    !!selectedCanvas && selectedCanvas === id && (app.devMode || ignoreDevMode)
+
+  return condition ? (
+    <>
+      <Perf
+        position='top-left'
+        minimal
+        {...props}
+        /* @ts-ignore */
+        customData={{ value: 0, name: selectedCanvas, info: 'id' }}
+      />
+      <DynamicXPerfHook id={id} />
+    </>
+  ) : null
+}
 
 export const XPerfHook: React.FC<Props> = ({ id }) => {
   // Conditionally Grab r3f-Perf values and set's it in the Global Store
@@ -44,31 +79,4 @@ export const XPerfHook: React.FC<Props> = ({ id }) => {
   }, [condition])
 
   return null
-}
-
-export const XPerf: React.FC<Props & PerfProps> = ({
-  id,
-  ignoreDevMode = false,
-  ...props
-}) => {
-  // Conditionally inject r3f-Perf
-  const [selectedCanvas, app] = useGlobalStore((state) => [
-    state.selectedCanvas,
-    state.app,
-  ])
-  const condition: boolean =
-    !!selectedCanvas && selectedCanvas === id && (app.devMode || ignoreDevMode)
-
-  return condition ? (
-    <>
-      <Perf
-        position='top-left'
-        minimal
-        {...props}
-        /* @ts-ignore */
-        customData={{ value: 0, name: selectedCanvas, info: 'id' }}
-      />
-      <XPerfHook id={id} />
-    </>
-  ) : null
 }

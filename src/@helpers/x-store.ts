@@ -1,4 +1,3 @@
-import { Any } from '@react-spring/types'
 import { NextRouter } from 'next/router'
 import create from 'zustand'
 import { GlobalStore } from './types'

@@ -1,4 +1,4 @@
-import { XPage } from '../type'
+import { XPage } from '../x-page'
 import styled from 'styled-components'
 import Link from 'next/link'
 import R3f from './scene'

@@ -1,7 +1,6 @@
-import { XPage } from '../type'
+import { XPage } from '../x-page'
 import useSWR from 'swr'
 import styled from 'styled-components'
-import Link from 'next/link'
 import R3f from './scene'
 import { useGlobalStore } from '../../@helpers/x-store'
 

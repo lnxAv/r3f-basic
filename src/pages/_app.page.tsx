@@ -3,14 +3,14 @@ import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
 import { XGUI } from '../@components/x/x-gui/component'
 import { NextComponentType } from 'next'
-import XCanvas from '../@components/x/x-canvas/component'
-import { XPage } from './type'
+import { XPage } from './x-page'
 import { useGlobalStore } from '../@helpers/x-store'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { AnimatePresence, motion } from 'framer-motion'
 import { motion as r3fMotion } from 'framer-motion-3d'
 import globalVariants from '../@styles/motion.variants'
+import { DynamicXCanvas } from '../@components/x/x-canvas/component'
 
 type XAppProps = AppProps & {
   Component: NextComponentType & XPage // add auth type
@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: XAppProps) {
             <Component {...pageProps} />
           </motion.div>
         ) : !!Component.r3f ? ( // if contain r3f, render canvas with injected HTML & R3F
-          <XCanvas
+          <DynamicXCanvas
             fullscreen
             html={{
               content: (
@@ -66,7 +66,7 @@ function MyApp({ Component, pageProps }: XAppProps) {
                 {Component.r3f(pageProps)}
               </r3fMotion.scene>
             </AnimatePresence>
-          </XCanvas>
+          </DynamicXCanvas>
         ) : null}
       </AnimatePresence>
     </>

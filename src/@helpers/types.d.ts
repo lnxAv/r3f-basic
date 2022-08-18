@@ -8,9 +8,9 @@ interface GlobalStore extends XAppStoreSlice, XPerfStoreSlice, XGUIStoreSlice {
 }
 type XAppStoreSlice = {
   app: {
-    // @special variables
+    // special variables
     devMode: boolean
-    // @special actions
+    // special actions
   }
   router: NextRouter | null
   setRouter: (router: NextRouter) => void

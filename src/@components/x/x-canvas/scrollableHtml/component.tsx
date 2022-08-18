@@ -1,11 +1,15 @@
 import React from 'react'
 import { useThree } from '@react-three/fiber'
 import { Scroll, ScrollControls } from '@react-three/drei'
-import Image from 'next/image'
 import { useGlobalStore } from '../../../../@helpers/x-store'
 import { XCanvasScrollableHTML } from '../types'
+import dynamic from 'next/dynamic'
 
 // Offer a r3f scroll injected with features
+export const DynamicScrollableHtml = dynamic<XCanvasScrollableHTML>(() =>
+  import('./component').then((mod) => mod.ScrollableHtml)
+)
+
 export const ScrollableHtml = ({
   scrollControls,
   content,

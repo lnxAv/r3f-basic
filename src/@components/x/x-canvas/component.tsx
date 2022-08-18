@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Canvas, Props as CanvasProps } from '@react-three/fiber'
-import { XPerf } from '../x-perf/component'
 import { uniqueId } from 'lodash'
 import { useGlobalStore } from '../../../@helpers/x-store'
 import { XCanvasProps } from './types'
 import XCanvasWrapper, { fullScreenStyle } from './styled'
-import ScrollableHtml from './scrollableHtml/component'
+import dynamic from 'next/dynamic'
+import { DynamicScrollableHtml } from './scrollableHtml/component'
+import { XPerf } from '../x-perf/component'
+
+export const DynamicXCanvas = dynamic<XCanvasProps & CanvasProps>(() =>
+  import('./component').then((mod) => mod.XCanvas)
+)
 
 // Offer a special canvas injected with features
 export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
@@ -44,7 +49,7 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
         {color ? <color attach='background' args={[color]} /> : null}
         <XPerf id={canvas_id} />
         <group>{children}</group>
-        {html ? <ScrollableHtml {...html} /> : null}
+        {html ? <DynamicScrollableHtml {...html} /> : null}
       </Canvas>
     </XCanvasWrapper>
   )
