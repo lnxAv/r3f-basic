@@ -1,6 +1,5 @@
 import { XPage } from '../x-page'
 import styled from 'styled-components'
-import Link from 'next/link'
 import R3f from './scene'
 import useSWR from 'swr'
 import { useGlobalStore } from '../../@helpers/x-store'
@@ -56,7 +55,7 @@ const Test2: XPage = (props) => {
         </div>
         <div>
           <a
-            href=''
+            href='/test'
             style={{ color: 'white' }}
             onClick={(e) => {
               e.preventDefault()
@@ -67,7 +66,7 @@ const Test2: XPage = (props) => {
           </a>
           <br />
           <a
-            href=''
+            href='/home'
             style={{ color: 'white' }}
             onClick={(e) => {
               e.preventDefault()

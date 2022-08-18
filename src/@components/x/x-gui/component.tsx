@@ -1,15 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { LevaPanel, useControls, useCreateStore } from 'leva'
+import { useControls, useCreateStore } from 'leva'
 import { StoreType } from 'leva/dist/declarations/src/types'
 import _ from 'lodash'
 import { useGlobalStore } from '../../../@helpers/x-store'
+import dynamic from 'next/dynamic'
 
 // @refresh reset
+
+const LevaPanel = dynamic<any>(() =>
+  import('leva').then((module) => module.LevaPanel)
+)
 
 // Renders gui store asigned -
 export function XGUI() {
   const [guiStore] = useGlobalStore((state) => [state.guiStore])
-  return (
+  return !!guiStore?.storeId ? (
     <LevaPanel
       theme={{
         colors: {
@@ -20,7 +25,7 @@ export function XGUI() {
       store={guiStore}
       titleBar={{ title: 'store : ' + guiStore?.storeId }}
     />
-  )
+  ) : null
 }
 
 // Create a gui store to be assigned -

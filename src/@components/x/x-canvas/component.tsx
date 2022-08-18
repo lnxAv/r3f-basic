@@ -7,6 +7,7 @@ import XCanvasWrapper, { fullScreenStyle } from './styled'
 import dynamic from 'next/dynamic'
 import { DynamicScrollableHtml } from './scrollableHtml/component'
 import { XPerf } from '../x-perf/component'
+import { Preload } from '@react-three/drei'
 
 export const DynamicXCanvas = dynamic<XCanvasProps & CanvasProps>(() =>
   import('./component').then((mod) => mod.XCanvas)
@@ -46,6 +47,7 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
         {canvas_id ? canvas_id : ''}
       </button>
       <Canvas {...props}>
+        <Preload />
         {color ? <color attach='background' args={[color]} /> : null}
         <XPerf id={canvas_id} />
         <group>{children}</group>

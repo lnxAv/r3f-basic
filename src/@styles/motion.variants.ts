@@ -11,6 +11,13 @@ const globalVariants: GlobalVariants = {
     },
     animate: {
       opacity: 1,
+      transition: {
+        delay: 0.1,
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
+        opacity: { duration: 0.7 },
+        default: { ease: 'linear' },
+      },
     },
     exit: {
       opacity: 0,
@@ -18,13 +25,20 @@ const globalVariants: GlobalVariants = {
   },
   defaultScene: {
     initial: {
-      x: -20,
+      x: -15,
     },
     animate: {
       x: 0,
+      transition: {
+        delay: 0.5,
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
+        duration: 1,
+        default: { ease: 'linear' },
+      },
     },
     exit: {
-      x: 20,
+      x: 15,
     },
   },
 }

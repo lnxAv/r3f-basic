@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Link from 'next/link'
-import XCanvas, { DynamicXCanvas } from '../../@components/x/x-canvas/component'
+import { DynamicXCanvas } from '../../@components/x/x-canvas/component'
 import {
   ContactShadows,
   Edges,
@@ -18,7 +18,6 @@ import { useGlobalStore } from '../../@helpers/x-store'
 import { useGUIControls } from '../../@components/x/x-gui/component'
 import { RhombicDodecaedron } from '../../@components/x/x-shapes/rhombic_dodecahedron'
 import { XPage } from '../x-page'
-import { motion } from 'framer-motion'
 
 function TrackedMesh({
   color = 'white',

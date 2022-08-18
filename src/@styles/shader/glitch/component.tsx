@@ -7,6 +7,7 @@ import vertex from './glsl/glitch.vert'
 import fragment from './glsl/glitch.frag'
 import { Vector3, Vector4 } from 'three'
 import { RhombicDodecaedron } from '../../../@components/x/x-shapes/rhombic_dodecahedron'
+import dynamic from 'next/dynamic'
 
 const GlitchMaterial = shaderMaterial(
   {
@@ -29,10 +30,10 @@ GlitchMaterial.key = THREE.MathUtils.generateUUID()
 extend({ GlitchMaterial })
 
 const GlitchShader = ({ children, ...props }: any) => {
-  const [detail, setDetail] = useState(0)
+  const [detail] = useState(0)
   const meshRef = useRef(null)
   const glitchTexture = useTexture(fake_uv.src)
-  useFrame((time, delta) => {
+  useFrame((time) => {
     if (meshRef?.current) {
       //@ts-ignore
       meshRef.current.material.uniforms.u_time.value =
@@ -60,3 +61,6 @@ const GlitchShader = ({ children, ...props }: any) => {
 }
 
 export default GlitchShader
+export const DynamicGlitchShader = dynamic<any>(() =>
+  import('./component').then((mod) => mod.default)
+)

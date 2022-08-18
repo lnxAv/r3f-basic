@@ -3,8 +3,10 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import R3f from './scene'
 import { useGlobalStore } from '../../@helpers/x-store'
+import { motion } from 'framer-motion'
+import globalVariants from '../../@styles/motion.variants'
 
-const Div = styled.div`
+const Div = styled(motion.div)`
   padding: 25px;
   padding-top: 50px;
   width: 50vw;
@@ -43,7 +45,7 @@ const Test: XPage = (props) => {
   // render data
   return (
     <>
-      <Div>
+      <Div {...globalVariants.default}>
         <h1>Rhombic Dodecahedron</h1>
         {data?.map((content, i) => (
           <div key={i} dangerouslySetInnerHTML={{ __html: content }} />
@@ -53,7 +55,7 @@ const Test: XPage = (props) => {
         <br />
         +
         <br />+
-        <div style={{ position: 'absolute', bottom: 0 }}>
+        <motion.div style={{ position: 'absolute', bottom: 0 }}>
           <br />
           +
           <br />
@@ -63,7 +65,7 @@ const Test: XPage = (props) => {
           <br />
           +
           <br />v
-        </div>
+        </motion.div>
       </Div>
       <Div>
         <br />
@@ -77,7 +79,7 @@ const Test: XPage = (props) => {
         </div>
         <div>
           <a
-            href=''
+            href='/test2'
             style={{ color: 'white' }}
             onClick={(e) => {
               e.preventDefault()
@@ -88,7 +90,7 @@ const Test: XPage = (props) => {
           </a>
           <br />
           <a
-            href=''
+            href='/home'
             style={{ color: 'white' }}
             onClick={(e) => {
               e.preventDefault()

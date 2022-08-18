@@ -1,4 +1,4 @@
-import { Line } from '@react-three/drei'
+import { Line, Merged } from '@react-three/drei'
 import { MeshProps } from '@react-three/fiber'
 import { forwardRef, Ref } from 'react'
 import { GroupReffered, MeshReffered } from '../../../@helpers/types'

@@ -1,6 +1,4 @@
-import { OrthographicCamera } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import dynamic from 'next/dynamic'
 import { useRef } from 'react'
 import {
   RhombicDodecaedron,
@@ -8,13 +6,7 @@ import {
 } from '../../@components/x/x-shapes/rhombic_dodecahedron'
 import { GroupReffered } from '../../@helpers/types'
 import { useGlobalStore } from '../../@helpers/x-store'
-
-const GlitchShader = dynamic(
-  () => import('../../@styles/shader/glitch/Shader'),
-  {
-    ssr: false,
-  }
-)
+import { DynamicGlitchShader } from '../../@styles/shader/glitch/component'
 
 const R3f = (props: any) => {
   const [router] = useGlobalStore((state) => [state.router])
@@ -71,7 +63,7 @@ const R3f = (props: any) => {
             roughness={0}
           />
         </RhombicDodecaedron>
-        <GlitchShader />
+        <DynamicGlitchShader />
       </group>
     </>
   )
