@@ -2,7 +2,9 @@ import { XPage } from '../x-page'
 import styled from 'styled-components'
 import R3f from './scene'
 import useSWR from 'swr'
+import { motion } from 'framer-motion'
 import { useGlobalStore } from '../../@helpers/x-store'
+import globalVariants from '../../@styles/motion.variants'
 
 const Div = styled.div`
   padding: 25px;
@@ -44,8 +46,13 @@ const Test2: XPage = (props) => {
     <>
       <Div>
         <h1>Tetrahedron</h1>
+
         {data?.map((content, i) => (
-          <div key={i} dangerouslySetInnerHTML={{ __html: content }} />
+          <motion.div
+            {...globalVariants.magicText}
+            key={i}
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
         ))}
       </Div>
       <Div>
@@ -92,11 +99,14 @@ Test2.r3f = (props) => {
 Test2.htmlMotion = {
   initial: {
     opacity: 0,
-    y: -5,
+    y: -1,
   },
   animate: {
     opacity: 1,
     y: 0,
+  },
+  transition: {
+    duration: 0.5,
   },
   exit: {
     opacity: 0,
@@ -106,8 +116,8 @@ Test2.htmlMotion = {
 
 Test2.r3fMotion = {
   initial: {
-    y: -5,
-    x: 0,
+    x: -5,
+    y: -1,
     scale: 0,
   },
   animate: {

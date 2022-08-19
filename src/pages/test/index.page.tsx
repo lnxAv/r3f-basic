@@ -130,8 +130,8 @@ Test.htmlMotion = {
 
 Test.r3fMotion = {
   initial: {
-    y: -5,
-    x: 0,
+    y: 0,
+    x: -5,
     scale: 0,
   },
   animate: {
@@ -141,6 +141,7 @@ Test.r3fMotion = {
   },
   exit: {
     x: 5,
+    y: 1,
     scale: 0,
   },
 }

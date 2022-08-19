@@ -16,7 +16,7 @@ const globalVariants: GlobalVariants = {
         delayChildren: 0.3,
         staggerChildren: 0.1,
         opacity: { duration: 0.7 },
-        default: { ease: 'linear' },
+        default: { ease: 'ease-in' },
       },
     },
     exit: {
@@ -39,6 +39,27 @@ const globalVariants: GlobalVariants = {
     },
     exit: {
       x: 15,
+    },
+  },
+  magicText: {
+    initial: {
+      opacity: 0,
+      height: 0,
+      overflow: 'hidden',
+    },
+    animate: {
+      opacity: 1,
+      height: 'auto',
+      transition: {
+        delay: 0.1,
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
+        opacity: { duration: 0.7 },
+        default: { ease: 'linear' },
+      },
+    },
+    exit: {
+      opacity: 0,
     },
   },
 }
