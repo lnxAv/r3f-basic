@@ -72,16 +72,6 @@ const Test2: XPage = (props) => {
             {`< test />`}
           </a>
           <br />
-          <a
-            href='/home'
-            style={{ color: 'white' }}
-            onClick={(e) => {
-              e.preventDefault()
-              router?.push('/home')
-            }}
-          >
-            {`< home />`}
-          </a>
         </div>
       </Div>
     </>
