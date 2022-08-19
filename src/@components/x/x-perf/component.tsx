@@ -35,7 +35,7 @@ export const XPerf: React.FC<Props & PerfProps> = ({
 
   return condition ? (
     <>
-      <mesh onClick={() => console.log('ok')}>
+      <mesh>
         {/* @ts-ignore */}
         <StyledPerf
           position='top-left'
@@ -43,9 +43,6 @@ export const XPerf: React.FC<Props & PerfProps> = ({
           {...props}
           /* @ts-ignore */
           customData={{ value: 0, name: selectedCanvas, info: 'id' }}
-          onClick={() => {
-            console.log('xx')
-          }}
         />
       </mesh>
       <DynamicXPerfHook id={id} />
