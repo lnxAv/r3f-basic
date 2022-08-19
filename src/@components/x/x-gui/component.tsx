@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useControls, useCreateStore } from 'leva'
 import { StoreType } from 'leva/dist/declarations/src/types'
-import _ from 'lodash'
 import { getGlobalState, useGlobalStore } from '../../../@helpers/x-store'
 import dynamic from 'next/dynamic'
 

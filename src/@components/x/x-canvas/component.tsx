@@ -1,15 +1,13 @@
-import React, { memo, Suspense, useEffect, useMemo, useState } from 'react'
+import React, { Suspense, useEffect, useMemo, useState } from 'react'
 import { Canvas, Props as CanvasProps } from '@react-three/fiber'
 import { uniqueId } from 'lodash'
 import { useGlobalStore } from '../../../@helpers/x-store'
 import { XCanvasProps } from './types'
 import XCanvasWrapper, { fullScreenStyle } from './styled'
 import dynamic from 'next/dynamic'
-import ScrollableHtml, {
-  DynamicScrollableHtml,
-} from './scrollableHtml/component'
+import { DynamicScrollableHtml } from './scrollableHtml/component'
 import { XPerf } from '../x-perf/component'
-import { Html, Preload, useProgress } from '@react-three/drei'
+import { Preload } from '@react-three/drei'
 
 export const DynamicXCanvas = dynamic<XCanvasProps & CanvasProps>(
   () => import('../../../@components/x/x-canvas/component'),
