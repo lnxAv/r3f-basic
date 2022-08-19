@@ -41,7 +41,7 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
     setSelectedCanvas(canvas_id !== selectedCanvas ? canvas_id : '')
   }
   const memoScroll = useMemo(
-    () => (html ? <ScrollableHtml {...html} /> : null),
+    () => (html ? <DynamicScrollableHtml {...html} /> : null),
     [html]
   )
 
@@ -54,8 +54,8 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
         {canvas_id ? canvas_id : ''}
       </button>
       <Canvas {...props}>
+        <Preload />
         <Suspense>
-          <Preload />
           {color ? <color attach='background' args={[color]} /> : null}
           <XPerf id={canvas_id} />
           <group>{children}</group>

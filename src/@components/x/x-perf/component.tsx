@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import { PerfProps, usePerf } from 'r3f-perf'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useGlobalStore } from '../../../@helpers/x-store'
 import { Props } from './types'
@@ -45,7 +45,9 @@ export const XPerf: React.FC<Props & PerfProps> = ({
           customData={{ value: 0, name: selectedCanvas, info: 'id' }}
         />
       </mesh>
-      <DynamicXPerfHook id={id} />
+      <Suspense>
+        <DynamicXPerfHook id={id} />
+      </Suspense>
     </>
   ) : null
 }

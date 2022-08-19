@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-
+import splash from '../@styles/splashScreen'
 const DocumentHead = () => {
   const titleDefault = 'r3f-basic'
   const url = 'https://nextjs.org'
@@ -101,6 +101,8 @@ const DocumentHead = () => {
             <link rel='apple-touch-startup-image' href='/images/apple_splash_750.png' sizes='750x1334' />
             <link rel='apple-touch-startup-image' href='/images/apple_splash_640.png' sizes='640x1136' />
         */}
+      {/* -- XSplashScreen -- */}
+      <style>{splash}</style>
     </Head>
   )
 }
@@ -112,6 +114,12 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        <div id={'globalLoader'}>
+          <div className='loader'>
+            <div />
+            <div />
+          </div>
+        </div>
       </body>
     </Html>
   )

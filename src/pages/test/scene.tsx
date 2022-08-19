@@ -8,7 +8,9 @@ import {
 } from '../../@components/x/x-shapes/rhombic_dodecahedron'
 import { GroupReffered } from '../../@helpers/types'
 import { getGlobalState, useGlobalStore } from '../../@helpers/x-store'
-import GlitchShader from '../../@styles/shader/glitch/component'
+import GlitchShader, {
+  DynamicGlitchShader,
+} from '../../@styles/shader/glitch/component'
 
 function RhombicWithGui({
   color = 'white',
@@ -116,7 +118,7 @@ const R3f = (props: any) => {
             roughness={0}
           />
         </RhombicDodecaedron>
-        <GlitchShader position={[0, 0, -2.5]} />
+        <DynamicGlitchShader position={[0, 0, -2.5]} />
       </group>
     </>
   )

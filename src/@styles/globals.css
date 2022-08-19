@@ -23,7 +23,7 @@
 1. Use a consistent sensible line-height in all browsers.
 2. Prevent adjustments of font size after orientation changes in iOS.
 3. Use a more readable tab size.
-4. Use the user's configured `sans` font-family by default.
+4. Use the user's configured `monospace` font-family by default.
 */
 
 html {
@@ -33,10 +33,11 @@ html {
   tab-size: 4; /* 3 */
   background: #181c20;
   color: #a7acba;
-  font-family: monospace;
+  font-family: monospace; /* 4 */
+  /*
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; /* 4 */
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';  */
 }
 
 /*
