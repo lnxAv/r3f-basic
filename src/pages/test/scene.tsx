@@ -1,15 +1,52 @@
+import { Edges, Html, Select } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
+import { useGUIControls } from '../../@components/x/x-gui/component'
 import {
   RhombicDodecaedron,
   RhombicDodecaedronLines,
 } from '../../@components/x/x-shapes/rhombic_dodecahedron'
 import { GroupReffered } from '../../@helpers/types'
-import { useGlobalStore } from '../../@helpers/x-store'
-import { DynamicGlitchShader } from '../../@styles/shader/glitch/component'
+import { getGlobalState, useGlobalStore } from '../../@helpers/x-store'
+import GlitchShader from '../../@styles/shader/glitch/component'
+
+function RhombicWithGui({
+  color = 'white',
+  thickness = 2,
+  roughness = 0.65,
+  envMapIntensity = 1,
+  transmission = 0,
+  metalness = 0,
+  ...props
+}) {
+  const [storeGUI] = useGlobalStore((state) => [state.guiStore])
+  const [store, { ...materialProps }] = useGUIControls(
+    {
+      color: { value: color },
+      roughness: { value: roughness, min: 0, max: 1 },
+      thickness: { value: thickness, min: -10, max: 10 },
+      envMapIntensity: { value: envMapIntensity, min: 0, max: 10 },
+      transmission: { value: transmission, min: 0, max: 1 },
+      ...(metalness !== undefined && {
+        metalness: { value: metalness, min: 0, max: 1 },
+      }),
+    },
+    true
+  )
+  const isSelected = !!store && store?.storeId === storeGUI?.storeId
+  return (
+    <RhombicDodecaedron {...props} userData={{ store }}>
+      <meshPhysicalMaterial {...materialProps} />
+      <Edges visible={isSelected} scale={1.1} renderOrder={1000}>
+        <meshBasicMaterial transparent color='#333' depthTest={false} />
+      </Edges>
+      <Html style={{ pointerEvents: 'none', width: 100 }}>{`<XGui />`}</Html>
+    </RhombicDodecaedron>
+  )
+}
 
 const R3f = (props: any) => {
-  const [router] = useGlobalStore((state) => [state.router])
+  const setGUIStore = getGlobalState().setGUIStore
   const groupRef = useRef<GroupReffered>(null)
 
   useFrame((time, delta) => {
@@ -39,21 +76,27 @@ const R3f = (props: any) => {
         />
         <RhombicDodecaedron scale={1} position={[-2, -2.5, 2]}>
           <meshPhysicalMaterial
-            color='#f0b57d3a'
+            color='#97c995'
             transmission={1}
             thickness={0}
             envMapIntensity={0}
             roughness={0}
           />
         </RhombicDodecaedron>
-        <RhombicDodecaedron scale={1} position={[2.5, 0, 2]}>
-          <meshPhysicalMaterial
-            color='#c31563'
+        <Select
+          box
+          onChange={(obj) => {
+            setGUIStore(obj[0]?.userData?.store)
+          }}
+        >
+          <RhombicWithGui
+            color='#e39ebd'
+            position={[2.5, 0, 2]}
             transmission={0.9}
             envMapIntensity={0.5}
             metalness={0.4}
           />
-        </RhombicDodecaedron>
+        </Select>
         <RhombicDodecaedron scale={1} position={[2.5, -2.5, 2]}>
           <meshPhysicalMaterial
             color='#E3DAC9'
@@ -63,7 +106,7 @@ const R3f = (props: any) => {
             roughness={0}
           />
         </RhombicDodecaedron>
-        <DynamicGlitchShader />
+        <GlitchShader position={[0, 0, -2.5]} />
       </group>
     </>
   )

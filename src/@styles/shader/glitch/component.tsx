@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { extend, useFrame } from '@react-three/fiber'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { shaderMaterial, useTexture } from '@react-three/drei'
 import fake_uv from '../../../../public/three/glitchalpha.png'
 import vertex from './glsl/glitch.vert'
@@ -29,22 +29,22 @@ GlitchMaterial.key = THREE.MathUtils.generateUUID()
 
 extend({ GlitchMaterial })
 
-const GlitchShader = ({ children, ...props }: any) => {
-  const [detail] = useState(0)
-  const meshRef = useRef(null)
-  const glitchTexture = useTexture(fake_uv.src)
-  useFrame((time) => {
-    if (meshRef?.current) {
-      //@ts-ignore
-      meshRef.current.material.uniforms.u_time.value =
-        Math.sin(time.clock.elapsedTime / 1.5) * 5
-    }
-  })
-  useEffect(() => {}, [glitchTexture])
-
-  return (
-    <mesh position={[0, 0, -2.5]} {...props}>
-      <RhombicDodecaedron ref={meshRef} detail={detail}>
+const GlitchShader = memo(
+  function GlitchShader({ children, ...props }: any) {
+    const meshRef = useRef(null)
+    const glitchTexture = useTexture(fake_uv.src)
+    useFrame((time) => {
+      if (meshRef?.current) {
+        //@ts-ignore
+        meshRef.current.material.uniforms.u_time.value =
+          Math.sin(time.clock.elapsedTime / 1.5) * 5
+      }
+    })
+    useEffect(() => {
+      props
+    }, [props])
+    return (
+      <RhombicDodecaedron ref={meshRef} detail={0} {...props}>
         {/*@ts-ignore*/}
         <glitchMaterial
           key={GlitchMaterial.key}
@@ -56,9 +56,10 @@ const GlitchShader = ({ children, ...props }: any) => {
           }}
         />
       </RhombicDodecaedron>
-    </mesh>
-  )
-}
+    )
+  },
+  (prevProps, nextProps) => true
+)
 
 export default GlitchShader
 export const DynamicGlitchShader = dynamic<any>(() =>
