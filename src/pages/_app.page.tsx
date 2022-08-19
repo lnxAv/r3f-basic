@@ -1,7 +1,6 @@
 import '../@styles/globals.css'
 import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
-import { XGUI } from '../@components/x/x-gui/component'
 import { NextComponentType } from 'next'
 import { XPage } from './x-page'
 import { useGlobalStore } from '../@helpers/x-store'
@@ -11,6 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { motion as r3fMotion } from 'framer-motion-3d'
 import globalVariants from '../@styles/motion.variants'
 import { DynamicXCanvas } from '../@components/x/x-canvas/component'
+import { XGUI } from '../@components/x/x-gui/component'
 
 type XAppProps = AppProps & {
   Component: NextComponentType & XPage // add auth type

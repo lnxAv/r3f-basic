@@ -5,6 +5,7 @@ import R3f from './scene'
 import { useGlobalStore } from '../../@helpers/x-store'
 import { motion } from 'framer-motion'
 import globalVariants from '../../@styles/motion.variants'
+import { XGUI } from '../../@components/x/x-gui/component'
 
 const Div = styled(motion.div)`
   padding: 25px;

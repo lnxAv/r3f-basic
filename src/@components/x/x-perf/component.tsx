@@ -35,7 +35,7 @@ export const XPerf: React.FC<Props & PerfProps> = ({
 
   return condition ? (
     <>
-      <mesh>
+      <Suspense>
         {/* @ts-ignore */}
         <StyledPerf
           position='top-left'
@@ -44,8 +44,6 @@ export const XPerf: React.FC<Props & PerfProps> = ({
           /* @ts-ignore */
           customData={{ value: 0, name: selectedCanvas, info: 'id' }}
         />
-      </mesh>
-      <Suspense>
         <DynamicXPerfHook id={id} />
       </Suspense>
     </>

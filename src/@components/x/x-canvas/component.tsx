@@ -55,7 +55,7 @@ export const XCanvas: React.FC<XCanvasProps & CanvasProps> = ({
         <Preload />
         <Suspense>
           {color ? <color attach='background' args={[color]} /> : null}
-          <XPerf id={canvas_id} />
+          {app.devMode ? <XPerf id={canvas_id} /> : null}
           <group>{children}</group>
           {memoScroll}
         </Suspense>

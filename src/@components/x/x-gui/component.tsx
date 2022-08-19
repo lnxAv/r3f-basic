@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { useControls, useCreateStore } from 'leva'
 import { StoreType } from 'leva/dist/declarations/src/types'
 import { getGlobalState, useGlobalStore } from '../../../@helpers/x-store'
@@ -12,19 +12,30 @@ const LevaPanel = dynamic<any>(() =>
 
 // Renders gui store asigned -
 export function XGUI() {
-  const guiStore = getGlobalState().guiStore
-  return !!guiStore?.storeId ? (
-    <LevaPanel
-      theme={{
-        colors: {
-          elevation1: '#22222bf7;',
-          elevation2: '#3a404535;',
-        },
-      }}
-      store={guiStore}
-      titleBar={{ title: 'store : ' + guiStore?.storeId }}
-    />
-  ) : null
+  const guiStore = useRef(useGlobalStore.getState().guiStore)
+  useEffect(() => {
+    useGlobalStore.subscribe((state) => (guiStore.current = state.guiStore))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const memoGUI = useMemo(
+    () =>
+      !!guiStore.current?.storeId ? (
+        <Suspense>
+          <LevaPanel
+            theme={{
+              colors: {
+                elevation1: '#22222bf7;',
+                elevation2: '#3a404535;',
+              },
+            }}
+            store={guiStore.current}
+            titleBar={{ title: 'store : ' + guiStore.current?.storeId }}
+          />
+        </Suspense>
+      ) : null,
+    [guiStore.current?.storeId]
+  )
+  return memoGUI
 }
 
 // Create a gui store to be assigned -
