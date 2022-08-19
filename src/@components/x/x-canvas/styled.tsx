@@ -20,7 +20,7 @@ const XCanvasWrapper = styled.div<{ devMode: boolean }>`
   font-family: monospace;
   button#canvas-toggle {
     display: inline;
-    z-index: 999;
+    z-index: 1000;
     background: #181c20;
     padding: 1px 5px;
     border-bottom-right-radius: 5px;

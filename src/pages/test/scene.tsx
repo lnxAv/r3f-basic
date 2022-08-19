@@ -1,6 +1,6 @@
 import { Edges, Html, Select } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGUIControls } from '../../@components/x/x-gui/component'
 import {
   RhombicDodecaedron,
@@ -19,6 +19,7 @@ function RhombicWithGui({
   metalness = 0,
   ...props
 }) {
+  const [hovered, setHovered] = useState<boolean>(false)
   const [storeGUI] = useGlobalStore((state) => [state.guiStore])
   const [store, { ...materialProps }] = useGUIControls(
     {
@@ -33,9 +34,18 @@ function RhombicWithGui({
     },
     true
   )
+  useEffect(() => {
+    document.body.style.cursor = hovered ? 'pointer' : 'auto'
+  }, [hovered])
+
   const isSelected = !!store && store?.storeId === storeGUI?.storeId
   return (
-    <RhombicDodecaedron {...props} userData={{ store }}>
+    <RhombicDodecaedron
+      {...props}
+      userData={{ store }}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    >
       <meshPhysicalMaterial {...materialProps} />
       <Edges visible={isSelected} scale={1.1} renderOrder={1000}>
         <meshBasicMaterial transparent color='#333' depthTest={false} />

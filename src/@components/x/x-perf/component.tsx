@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import { PerfProps, usePerf } from 'r3f-perf'
 import React, { useEffect, useRef, useState } from 'react'
+import styled from 'styled-components'
 import { useGlobalStore } from '../../../@helpers/x-store'
 import { Props } from './types'
 
@@ -10,7 +11,15 @@ const Perf = dynamic<PerfProps>(() =>
 const DynamicXPerfHook = dynamic<Props & PerfProps>(() =>
   import('./component').then((mod) => mod.XPerfHook)
 )
-
+const StyledPerf = styled(Perf)`
+  z-index: 999;
+  margin-left: 70px;
+  margin-top: 15px;
+  &:hover {
+    z-index: 997;
+    opacity: 0.4;
+  }
+`
 export const XPerf: React.FC<Props & PerfProps> = ({
   id,
   ignoreDevMode = false,
@@ -26,13 +35,19 @@ export const XPerf: React.FC<Props & PerfProps> = ({
 
   return condition ? (
     <>
-      <Perf
-        position='top-left'
-        minimal
-        {...props}
-        /* @ts-ignore */
-        customData={{ value: 0, name: selectedCanvas, info: 'id' }}
-      />
+      <mesh onClick={() => console.log('ok')}>
+        {/* @ts-ignore */}
+        <StyledPerf
+          position='top-left'
+          minimal
+          {...props}
+          /* @ts-ignore */
+          customData={{ value: 0, name: selectedCanvas, info: 'id' }}
+          onClick={() => {
+            console.log('xx')
+          }}
+        />
+      </mesh>
       <DynamicXPerfHook id={id} />
     </>
   ) : null
