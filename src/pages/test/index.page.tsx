@@ -76,7 +76,7 @@ const Test: XPage = (props: any) => {
 
 export async function getStaticProps() {
   const url =
-    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Tetrahedron'
+    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Rhombic_dodecahedron'
   const res = await fetch(url)
   const posts = await res.json()
   const extractAPIContents = (json: any) => {
