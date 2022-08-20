@@ -1,7 +1,6 @@
 import { XPage } from '../x-page'
 import styled from 'styled-components'
 import R3f from './scene'
-import useSWR from 'swr'
 import { motion } from 'framer-motion'
 import { useGlobalStore } from '../../@helpers/x-store'
 import globalVariants from '../../@styles/motion.variants'
@@ -17,37 +16,15 @@ const Div = styled.div`
   }
 `
 
-const useFetchShapeWiki = () => {
-  const url =
-    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Tetrahedron'
-  const fetcher = (...args: any) =>
-    fetch(args)
-      .then((res) => res.json())
-      .then((json) => extractAPIContents(json))
-  const { data, error } = useSWR(url, fetcher)
-
-  const extractAPIContents = (json: any) => {
-    const { pages } = json.query
-    return Object.keys(pages).map((id) => pages[id].extract)
-  }
-
-  return {
-    data: data,
-    isLoading: !error && !data,
-    error: error,
-  }
-}
-
-const Test2: XPage = (props) => {
+const Test2: XPage = (props: any) => {
   const [router] = useGlobalStore((state) => [state.router])
-  const { data } = useFetchShapeWiki()
 
   return (
     <>
       <Div>
         <h1>Tetrahedron</h1>
 
-        {data?.map((content, i) => (
+        {props.data?.map((content: any, i: number) => (
           <motion.div
             {...globalVariants.magicText}
             key={i}
@@ -76,6 +53,24 @@ const Test2: XPage = (props) => {
       </Div>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const url =
+    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Tetrahedron'
+  const res = await fetch(url)
+  const posts = await res.json()
+  const extractAPIContents = (json: any) => {
+    const { pages } = json.query
+
+    return Object.keys(pages).map((id) => pages[id].extract)
+  }
+
+  return {
+    props: {
+      data: extractAPIContents(posts),
+    },
+  }
 }
 
 Test2.r3f = (props) => {

@@ -9,23 +9,22 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 // Imports
 const { i18n } = require('./next-i18next.config')
+const runtimeCaching = require('next-pwa/cache')
 
 // Notes:
 /**
  ** Analzer: https://www.npmjs.com/package/@next/bundle-analyzer
  ** */
+const isDev = process.env.NODE_ENV !== 'production'
+
 const nextConfig = {
   pageExtensions: ['page.tsx', 'api.ts', 'index.tsx'],
-  reactStrictMode: true,
   reactStrictMode: true,
   swcMinify: true,
   compiler: {
     styledComponents: true,
   },
   i18n,
-  pwa: {
-    dest: 'public',
-  },
   webpack: (config, { isServer }) => {
     // audio support
     config.module.rules.push({
@@ -57,4 +56,21 @@ const nextConfig = {
 
 const defaultConfig = {}
 
-module.exports = withPlugins([withBundleAnalyzer, withPWA], nextConfig)
+module.exports = withPlugins(
+  [
+    [withBundleAnalyzer, {}],
+    [
+      withPWA,
+      {
+        dest: 'public',
+        disable: process.env.NODE_ENV === 'development',
+        runtimeCaching,
+        // register: true,
+        // scope: '/app',
+        // sw: 'sw.js',
+        //...
+      },
+    ],
+  ],
+  nextConfig
+)

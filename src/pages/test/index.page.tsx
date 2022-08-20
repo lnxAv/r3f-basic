@@ -19,36 +19,14 @@ const Div = styled(motion.div)`
   }
 `
 
-const useFetchShapeWiki = () => {
-  const url =
-    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Rhombic_dodecahedron'
-  const fetcher = (...args: any) =>
-    fetch(args)
-      .then((res) => res.json())
-      .then((json) => extractAPIContents(json))
-  const { data, error } = useSWR(url, fetcher)
-
-  const extractAPIContents = (json: any) => {
-    const { pages } = json.query
-    return Object.keys(pages).map((id) => pages[id].extract)
-  }
-
-  return {
-    data: data,
-    isLoading: !error && !data,
-    error: error,
-  }
-}
-
-const Test: XPage = (props) => {
+const Test: XPage = (props: any) => {
   const [router] = useGlobalStore((state) => [state.router])
-  const { data } = useFetchShapeWiki()
   // render data
   return (
     <>
       <Div {...globalVariants.default}>
         <h1>Rhombic Dodecahedron</h1>
-        {data?.map((content, i) => (
+        {props.data?.map((content: any, i: number) => (
           <div key={i} dangerouslySetInnerHTML={{ __html: content }} />
         ))}
         <br />
@@ -94,6 +72,24 @@ const Test: XPage = (props) => {
       </Div>
     </>
   )
+}
+
+export async function getStaticProps() {
+  const url =
+    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Tetrahedron'
+  const res = await fetch(url)
+  const posts = await res.json()
+  const extractAPIContents = (json: any) => {
+    const { pages } = json.query
+
+    return Object.keys(pages).map((id) => pages[id].extract)
+  }
+
+  return {
+    props: {
+      data: extractAPIContents(posts),
+    },
+  }
 }
 
 Test.r3f = (props) => {
