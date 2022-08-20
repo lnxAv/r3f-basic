@@ -68,6 +68,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
+      title: 'Tetrahedron',
       data: extractAPIContents(posts),
     },
   }

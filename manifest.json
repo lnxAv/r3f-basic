@@ -1,6 +1,9 @@
 {
     "name": "PWA App",
     "short_name": "App",
+    "description": "lol",
+    "homepage_url": "...",
+    "author": "lnx/github",
     "icons": [
       {
         "src": "/icons/android-chrome-192x192.png",

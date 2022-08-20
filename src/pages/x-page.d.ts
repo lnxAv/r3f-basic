@@ -6,8 +6,9 @@ import { ThreeElements } from '@react-three/fiber'
 import { NextComponentType, NextPage } from 'next'
 import { PropsWithChildren, ReactElement, Ref } from 'react'
 type XPage<P = {}, IP = P> = NextComponentType<P, IP> & {
+  title?: string
   r3f?: (props: P) => JSX.Element
-  scrollControls?: Partial<ScrollControlsProps>
   r3fMotion?: MotionProps
   htmlMotion?: MotionProps
+  scrollControls?: Partial<ScrollControlsProps>
 }

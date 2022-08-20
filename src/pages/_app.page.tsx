@@ -6,11 +6,13 @@ import { XPage } from './x-page'
 import { useGlobalStore } from '../@helpers/x-store'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion as htmlMotion } from 'framer-motion'
 import { motion as r3fMotion } from 'framer-motion-3d'
 import globalVariants from '../@styles/motion.variants'
 import { DynamicXCanvas } from '../@components/x/x-canvas/component'
 import { XGUI } from '../@components/x/x-gui/component'
+import Head from 'next/head'
+import manifest from '../../manifest.json'
 
 type XAppProps = AppProps & {
   Component: NextComponentType & XPage // add auth type
@@ -36,29 +38,33 @@ function MyApp({ Component, pageProps }: XAppProps) {
 
   return (
     <>
+      <Head>
+        {/* Dynamic headers */}
+        <title>{pageProps.title || manifest.name}</title>
+      </Head>
       <XGUI />
       {!!!Component.r3f ? ( // if doesn't contain r3f, render HTML only
-        <motion.div
+        <htmlMotion.div
           key={router.pathname}
           {...(!!Component.htmlMotion
             ? { ...Component.htmlMotion }
             : { ...globalVariants.default })}
         >
           <Component {...pageProps} />
-        </motion.div>
+        </htmlMotion.div>
       ) : !!Component.r3f ? ( // if contain r3f, render canvas with injected HTML & R3F
         <DynamicXCanvas
           fullscreen
           html={{
             content: (
-              <motion.div
+              <htmlMotion.div
                 key={router.pathname}
                 {...(!!Component.htmlMotion
                   ? { ...Component.htmlMotion }
                   : { ...globalVariants.default })}
               >
                 <Component {...pageProps} />
-              </motion.div>
+              </htmlMotion.div>
             ),
             scrollControls: Component?.scrollControls,
           }}

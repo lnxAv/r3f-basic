@@ -1,10 +1,11 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import splash from '../@styles/splashScreen'
+import manifest from '../../manifest.json'
 const DocumentHead = () => {
-  const titleDefault = 'r3f-basic'
-  const url = 'https://nextjs.org'
-  const description = 'r3f-next starter kit'
-  const author = 'Author'
+  const titleDefault = manifest.name
+  const url = manifest.homepage_url
+  const description = manifest.description
+  const author = manifest.author
   const keywords = ''
   const robots = ''
 

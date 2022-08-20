@@ -6,6 +6,7 @@ import { useGlobalStore } from '../../@helpers/x-store'
 import { motion } from 'framer-motion'
 import globalVariants from '../../@styles/motion.variants'
 import { XGUI } from '../../@components/x/x-gui/component'
+import Head from 'next/head'
 
 const Div = styled(motion.div)`
   padding: 25px;
@@ -24,6 +25,9 @@ const Test: XPage = (props: any) => {
   // render data
   return (
     <>
+      <Head>
+        <title>Rhombic Dodecahedron</title>
+      </Head>
       <Div {...globalVariants.default}>
         <h1>Rhombic Dodecahedron</h1>
         {props.data?.map((content: any, i: number) => (
@@ -87,6 +91,7 @@ export async function getStaticProps() {
 
   return {
     props: {
+      title: 'Rhombic dodecahedron',
       data: extractAPIContents(posts),
     },
   }
