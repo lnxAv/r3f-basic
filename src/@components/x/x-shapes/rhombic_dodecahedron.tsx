@@ -1,7 +1,7 @@
-import { Line } from '@react-three/drei'
-import { MeshProps } from '@react-three/fiber'
-import { forwardRef, Ref } from 'react'
-import { GroupReffered, MeshReffered } from '../../../@helpers/types'
+import { Line } from '@react-three/drei';
+import { MeshProps } from '@react-three/fiber';
+import React, { forwardRef, Ref } from 'react';
+import { GroupReffered, MeshReffered } from '../../../@helpers/types';
 
 export const args: PolyhedronArgs = {
   vertices: [
@@ -42,41 +42,34 @@ export const args: PolyhedronArgs = {
   ],
   radius: 1,
   detail: 0,
-}
+};
 
-export const RhombicDodecaedron = forwardRef(function RhombicDodecaedron(
-  {
-    radius = args.radius,
-    detail = args.detail,
-    ...props
-  }: MeshProps & PolyhedronType,
-  ref: Ref<MeshReffered>
-) {
-  return (
+export const RhombicDodecaedron = forwardRef(
+  (
+    {
+      radius = args.radius,
+      detail = args.detail,
+      ...props
+    }: MeshProps & PolyhedronType,
+    ref: Ref<MeshReffered>,
+  ) => (
     <mesh ref={ref} {...props}>
       <polyhedronBufferGeometry
         args={[args.vertices.flat(), args.indices, radius, detail]}
       />
       {props.children}
     </mesh>
-  )
-})
+  ),
+);
 
 export const RhombicDodecaedronLines = forwardRef(
-  function RhombicDodecaedronLines(
-    { children, ...props }: LineType,
-    ref: Ref<GroupReffered>
-  ) {
-    return (
-      <group ref={ref}>
-        {args.indicesLines?.map((value, index) => {
-          const points = value.map((indice) => {
-            return args.vertices[indice]
-          })
-          return <Line key={`line-${index}`} points={points} {...props} />
-        })}
-        {children}
-      </group>
-    )
-  }
-)
+  ({ children, ...props }: LineType, ref: Ref<GroupReffered>) => (
+    <group ref={ref}>
+      {args.indicesLines?.map((value, index) => {
+        const points = value.map((indice) => args.vertices[indice]);
+        return <Line key={`line-${index}`} points={points} {...props} />;
+      })}
+      {children}
+    </group>
+  ),
+);

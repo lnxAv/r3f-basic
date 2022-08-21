@@ -1,24 +1,22 @@
-import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber';
+import React, { useRef } from 'react';
 
-import { MeshReffered } from '../../@helpers/types'
-import { XR3f } from '../x-page'
+import { MeshReffered } from '../../@helpers/types';
+import { XR3f } from '../x-page';
 
-const R3f: XR3f<any> = (props) => {
-  const mesh = useRef<MeshReffered>(null)
+function R3f(): XR3f<any> {
+  const mesh = useRef<MeshReffered>(null);
   useFrame((t, d) => {
     if (mesh.current) {
-      mesh.current.rotation.x += mesh.current.rotation.y + 2 * d
+      mesh.current.rotation.x += mesh.current.rotation.y + 2 * d;
     }
-  })
+  });
   return (
-    <>
-      <mesh ref={mesh}>
-        <tetrahedronBufferGeometry />
-        <meshNormalMaterial />
-      </mesh>
-    </>
-  )
+    <mesh ref={mesh}>
+      <tetrahedronBufferGeometry />
+      <meshNormalMaterial />
+    </mesh>
+  );
 }
 
 R3f.motion = {
@@ -36,10 +34,10 @@ R3f.motion = {
     x: 5,
     scale: 0,
   },
-}
+};
 
 R3f.scrollControls = {
   pages: 0,
-}
+};
 
-export default R3f
+export default R3f;

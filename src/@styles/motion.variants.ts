@@ -1,8 +1,8 @@
-import { MotionProps, Variants } from 'framer-motion'
+import { Variants } from 'framer-motion';
 
 type GlobalVariants = {
   [key: string]: Variants
-}
+};
 
 const globalVariants: GlobalVariants = {
   default: {
@@ -62,6 +62,6 @@ const globalVariants: GlobalVariants = {
       opacity: 0,
     },
   },
-}
+};
 
-export default globalVariants
+export default globalVariants;

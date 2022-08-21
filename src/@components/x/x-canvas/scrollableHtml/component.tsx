@@ -1,28 +1,26 @@
-import React from 'react'
-import { useThree } from '@react-three/fiber'
-import { Scroll, ScrollControls } from '@react-three/drei'
-import { useGlobalStore } from '../../../../@helpers/x-store'
-import { XCanvasScrollableHTML } from '../types'
-import dynamic from 'next/dynamic'
+import React from 'react';
+import { useThree } from '@react-three/fiber';
+import { Scroll, ScrollControls } from '@react-three/drei';
+import dynamic from 'next/dynamic';
+import { useGlobalStore } from '../../../../@helpers/x-store';
+import { XCanvasScrollableHTML } from '../types';
 
 // Offer a r3f scroll injected with features
-export const DynamicScrollableHtml = dynamic<XCanvasScrollableHTML>(() =>
-  import('./component').then((mod) => mod.ScrollableHtml)
-)
+export const DynamicScrollableHtml = dynamic<XCanvasScrollableHTML>(() => import('./component').then((mod) => mod.ScrollableHtml));
 
-export const ScrollableHtml = ({
+export function ScrollableHtml({
   scrollControls,
   content,
-}: XCanvasScrollableHTML) => {
-  const [router] = useGlobalStore((state) => [state.router])
-  const { size } = useThree()
+}: XCanvasScrollableHTML) {
+  const [router] = useGlobalStore((state) => [state.router]);
+  const { size } = useThree();
 
   return (
     <mesh>
       <ScrollControls key={router?.pathname} {...scrollControls}>
         <Scroll html>
           <div
-            className='xcanvas-scroll-wrapper'
+            className="xcanvas-scroll-wrapper"
             style={{
               height: size.height,
               width: size.width,
@@ -30,12 +28,12 @@ export const ScrollableHtml = ({
           >
             <div
               style={
-                !!!scrollControls?.pages
+                !scrollControls?.pages
                   ? {
-                      minHeight: '100vh',
-                      maxHeight: '100vh',
-                      overflow: 'auto',
-                    }
+                    minHeight: '100vh',
+                    maxHeight: '100vh',
+                    overflow: 'auto',
+                  }
                   : undefined
               }
             >
@@ -45,6 +43,6 @@ export const ScrollableHtml = ({
         </Scroll>
       </ScrollControls>
     </mesh>
-  )
+  );
 }
-export default ScrollableHtml
+export default ScrollableHtml;

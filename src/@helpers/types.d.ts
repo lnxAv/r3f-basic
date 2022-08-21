@@ -1,7 +1,10 @@
 // Global store
-import { XPerfStoreSlice } from '../@components/x/x-perf/types'
-import { XGUIStoreSlice } from '../@components/x/x-gui/types'
-import { NextRouter } from 'next/router'
+import { NextRouter } from 'next/router';
+import { BufferGeometry, Material, Mesh } from 'three';
+
+import { XGUIStoreSlice } from '../@components/x/x-gui/types';
+import { XPerfStoreSlice } from '../@components/x/x-perf/types';
+
 interface GlobalStore extends XAppStoreSlice, XPerfStoreSlice, XGUIStoreSlice {
   selectedCanvas: string
   setSelectedCanvas: (id: string) => void
@@ -14,9 +17,8 @@ type XAppStoreSlice = {
   }
   router: NextRouter | null
   setRouter: (router: NextRouter) => void
-}
+};
 
 // Ref for Meshes since not declared by @r3f
-import { Mesh, BufferGeometry, Material } from 'three'
-export type MeshReffered = Mesh<BufferGeometry, Material | Material[]>
-export type GroupReffered = Group<BufferGeometry, Material | Material[]>
+export type MeshReffered = Mesh<BufferGeometry, Material | Material[]>;
+export type GroupReffered = Group<BufferGeometry, Material | Material[]>;

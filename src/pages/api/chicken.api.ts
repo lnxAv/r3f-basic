@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.status(200).json({
@@ -11,5 +11,5 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
        \_____/
     _____|_|____
          " "     `,
-  })
+  });
 }

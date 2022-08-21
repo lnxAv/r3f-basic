@@ -1,5 +1,5 @@
-import { CSSProperties } from 'react'
-import styled from 'styled-components'
+import { CSSProperties } from 'react';
+import styled from 'styled-components';
 
 const XCanvasWrapper = styled.div<{ devMode: boolean }>`
   position: relative;
@@ -11,9 +11,8 @@ const XCanvasWrapper = styled.div<{ devMode: boolean }>`
     position: absolute;
     display: none;
   }
-  ${(props) =>
-    props.devMode
-      ? `
+  ${(props) => (props.devMode
+    ? `
   border: 1px solid #181c20;
   background: #181c20;
   font-size: 12px;
@@ -26,8 +25,8 @@ const XCanvasWrapper = styled.div<{ devMode: boolean }>`
     border-bottom-right-radius: 5px;
   }
 `
-      : ''}
-`
+    : '')}
+`;
 export const fullScreenStyle: CSSProperties = {
   position: 'absolute',
   top: 0,
@@ -35,6 +34,6 @@ export const fullScreenStyle: CSSProperties = {
   zIndex: -1,
   width: '100vw',
   height: '100vh',
-}
+};
 
-export default XCanvasWrapper
+export default XCanvasWrapper;
