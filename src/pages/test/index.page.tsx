@@ -15,9 +15,10 @@ const Div = styled(motion.div)`
   padding-top: 50px;
   width: 50vw;
   height: 100vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   scroll-snap-type: y mandatory;
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 620px) {
     width: 100vw;
   }
 `
@@ -76,7 +77,7 @@ const Test: XPage = (props: any) => {
           </a>
           <br />
           <a
-            href=''
+            href={`${props.locale}/test`}
             onClick={(e) => {
               e.preventDefault()
               router?.push('/test', '/test', {

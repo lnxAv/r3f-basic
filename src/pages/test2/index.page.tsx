@@ -10,7 +10,7 @@ const Div = styled.div`
   padding-top: 50px;
   width: 50vw;
   height: auto;
-  overflow: auto;
+  overflow-y: auto;
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
@@ -50,7 +50,7 @@ const Test2: XPage = (props: any) => {
           </a>
           <br />
           <a
-            href=''
+            href={`${props.locale}/test`}
             onClick={(e) => {
               e.preventDefault()
               router?.push('/test2', '/test2', {
