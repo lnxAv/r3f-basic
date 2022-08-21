@@ -1,13 +1,12 @@
-import { XPage } from '../x-page'
-import useSWR from 'swr'
-import styled from 'styled-components'
-import R3f from './r3f'
-import { useGlobalStore } from '../../@helpers/x-store'
 import { motion } from 'framer-motion'
-import globalVariants from '../../@styles/motion.variants'
-import { XGUI } from '../../@components/x/x-gui/component'
-import Head from 'next/head'
 import { useTranslation } from 'next-i18next'
+import Head from 'next/head'
+import styled from 'styled-components'
+
+import { useGlobalStore } from '../../@helpers/x-store'
+import globalVariants from '../../@styles/motion.variants'
+import { XPage } from '../x-page'
+import R3f from './r3f'
 
 const Div = styled(motion.div)`
   position: relative;

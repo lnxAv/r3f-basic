@@ -1,9 +1,10 @@
-import { XPage } from '../x-page'
-import styled from 'styled-components'
-import R3f from './r3f'
 import { motion } from 'framer-motion'
+import styled from 'styled-components'
+
 import { useGlobalStore } from '../../@helpers/x-store'
 import globalVariants from '../../@styles/motion.variants'
+import { XPage } from '../x-page'
+import R3f from './r3f'
 
 const Div = styled.div`
   padding: 25px;

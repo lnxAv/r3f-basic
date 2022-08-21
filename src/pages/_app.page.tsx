@@ -1,19 +1,21 @@
 import '../@styles/globals.css'
-import { appWithTranslation } from 'next-i18next'
-import type { AppProps } from 'next/app'
-import { NextComponentType } from 'next'
-import { XPage } from './x-page'
-import { useGlobalStore } from '../@helpers/x-store'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+
 import { AnimatePresence, motion as htmlMotion } from 'framer-motion'
 import { motion as r3fMotion } from 'framer-motion-3d'
-import globalVariants from '../@styles/motion.variants'
+import { NextComponentType } from 'next'
+import { appWithTranslation } from 'next-i18next'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+
+import manifest from '../../manifest.json'
 import { DynamicXCanvas } from '../@components/x/x-canvas/component'
 import { XGUI } from '../@components/x/x-gui/component'
-import Head from 'next/head'
-import manifest from '../../manifest.json'
+import { useGlobalStore } from '../@helpers/x-store'
+import globalVariants from '../@styles/motion.variants'
+import { XPage } from './x-page'
 
+import type { AppProps } from 'next/app'
 type XAppProps = AppProps & {
   Component: NextComponentType & XPage // add auth type
 }

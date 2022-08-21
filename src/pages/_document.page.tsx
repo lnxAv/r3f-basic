@@ -1,6 +1,8 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-import splash from '../@styles/splashScreen'
+import { Head, Html, Main, NextScript } from 'next/document'
+
 import manifest from '../../manifest.json'
+import splash from '../@styles/splashScreen'
+
 const DocumentHead = () => {
   const titleDefault = manifest.name
   const url = manifest.homepage_url
