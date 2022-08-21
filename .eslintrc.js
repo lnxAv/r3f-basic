@@ -23,9 +23,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'react/function-component-definition': [
       2,
-      {
-        namedComponents: ['arrow-function', 'function-declaration'],
-      },
+      { namedComponents: ['arrow-function', 'function-declaration'] },
     ],
   },
 }
