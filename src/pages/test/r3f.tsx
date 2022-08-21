@@ -8,9 +8,8 @@ import {
 } from '../../@components/x/x-shapes/rhombic_dodecahedron'
 import { GroupReffered } from '../../@helpers/types'
 import { getGlobalState, useGlobalStore } from '../../@helpers/x-store'
-import GlitchShader, {
-  DynamicGlitchShader,
-} from '../../@styles/shader/glitch/component'
+import { DynamicGlitchShader } from '../../@styles/shader/glitch/component'
+import { XR3f } from '../x-page'
 
 function RhombicWithGui({
   color = 'white',
@@ -57,7 +56,7 @@ function RhombicWithGui({
   )
 }
 
-const R3f = (props: any) => {
+const R3f: XR3f<any> = (props) => {
   const setGUIStore = getGlobalState().setGUIStore
   const groupRef = useRef<GroupReffered>(null)
 
@@ -122,6 +121,29 @@ const R3f = (props: any) => {
       </group>
     </>
   )
+}
+
+R3f.motion = {
+  initial: {
+    y: 0,
+    x: -5,
+    scale: 0,
+  },
+  animate: {
+    y: 0,
+    x: 0,
+    scale: 1,
+  },
+  exit: {
+    x: 5,
+    y: 1,
+    scale: 0,
+  },
+}
+
+R3f.scrollControls = {
+  pages: 2,
+  damping: 4,
 }
 
 export default R3f

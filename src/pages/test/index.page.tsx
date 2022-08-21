@@ -1,7 +1,7 @@
 import { XPage } from '../x-page'
 import useSWR from 'swr'
 import styled from 'styled-components'
-import R3f from './scene'
+import R3f from './r3f'
 import { useGlobalStore } from '../../@helpers/x-store'
 import { motion } from 'framer-motion'
 import globalVariants from '../../@styles/motion.variants'
@@ -9,6 +9,7 @@ import { XGUI } from '../../@components/x/x-gui/component'
 import Head from 'next/head'
 
 const Div = styled(motion.div)`
+  position: relative;
   padding: 25px;
   padding-top: 50px;
   width: 50vw;
@@ -97,13 +98,7 @@ export async function getStaticProps() {
   }
 }
 
-Test.r3f = (props) => {
-  return (
-    <>
-      <R3f {...props}></R3f>
-    </>
-  )
-}
+Test.r3f = R3f
 
 Test.htmlMotion = {
   initial: {
@@ -118,29 +113,6 @@ Test.htmlMotion = {
     opacity: 0,
     y: -5,
   },
-}
-
-Test.r3fMotion = {
-  initial: {
-    y: 0,
-    x: -5,
-    scale: 0,
-  },
-  animate: {
-    y: 0,
-    x: 0,
-    scale: 1,
-  },
-  exit: {
-    x: 5,
-    y: 1,
-    scale: 0,
-  },
-}
-
-Test.scrollControls = {
-  pages: 2,
-  damping: 4,
 }
 
 export default Test

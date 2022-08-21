@@ -66,17 +66,17 @@ function MyApp({ Component, pageProps }: XAppProps) {
                 <Component {...pageProps} />
               </htmlMotion.div>
             ),
-            scrollControls: Component?.scrollControls,
+            scrollControls: Component?.r3f?.scrollControls,
           }}
         >
           <AnimatePresence exitBeforeEnter>
             <r3fMotion.group
               key={router.pathname}
-              {...(!!Component.r3fMotion
-                ? { ...Component.r3fMotion }
+              {...(!!Component.r3f.motion
+                ? { ...Component.r3f.motion }
                 : { ...globalVariants.defaultScene })}
             >
-              {Component.r3f(pageProps)}
+              {<Component.r3f {...pageProps} />}
             </r3fMotion.group>
           </AnimatePresence>
         </DynamicXCanvas>

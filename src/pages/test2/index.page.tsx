@@ -1,6 +1,6 @@
 import { XPage } from '../x-page'
 import styled from 'styled-components'
-import R3f from './scene'
+import R3f from './r3f'
 import { motion } from 'framer-motion'
 import { useGlobalStore } from '../../@helpers/x-store'
 import globalVariants from '../../@styles/motion.variants'
@@ -74,14 +74,6 @@ export async function getServerSideProps() {
   }
 }
 
-Test2.r3f = (props) => {
-  return (
-    <>
-      <R3f {...props}></R3f>
-    </>
-  )
-}
-
 Test2.htmlMotion = {
   initial: {
     opacity: 0,
@@ -100,25 +92,6 @@ Test2.htmlMotion = {
   },
 }
 
-Test2.r3fMotion = {
-  initial: {
-    x: -5,
-    y: -1,
-    scale: 0,
-  },
-  animate: {
-    y: 0,
-    x: 0,
-    scale: 1,
-  },
-  exit: {
-    x: 5,
-    scale: 0,
-  },
-}
-
-Test2.scrollControls = {
-  pages: 0,
-}
+Test2.r3f = R3f
 
 export default Test2
