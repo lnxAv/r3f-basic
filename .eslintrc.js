@@ -26,4 +26,4 @@ module.exports = {
       { namedComponents: ['arrow-function', 'function-declaration'] },
     ],
   },
-}
+};
