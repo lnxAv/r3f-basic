@@ -1,7 +1,9 @@
 {
-  "name": "r3f-basic",
-  "version": "0.1.0",
-  "bin": "./.bin/cli.js",
+  "name": "@lnxav/r3f-basic",
+  "version": "0.9.0",
+  "bin": {
+    "r3f-basic": ".bin/cli.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -55,5 +57,23 @@
   "lint-staged": {
     "src/**/*.{js,ts,jsx,tsx}": "eslint --cache --fix",
     "*.{js,ts,jsx,tsx,css,md}": "prettier --write"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "next-i18next.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lnxAv/r3f-basic.git"
+  },
+  "keywords": [
+    "r3f",
+    "starter",
+    "shader",
+    "pwa"
+  ],
+  "author": "lnxav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lnxAv/r3f-basic/issues"
+  },
+  "homepage": "https://github.com/lnxAv/r3f-basic#readme"
 }
