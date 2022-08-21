@@ -1,7 +1,4 @@
-/** @type {import('next').NextConfig}**/
-
 // Plugins
-const withPlugins = require('next-compose-plugins')
 const withPWA = require('next-pwa')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -15,8 +12,9 @@ const runtimeCaching = require('next-pwa/cache')
 /**
  ** Analzer: https://www.npmjs.com/package/@next/bundle-analyzer
  ** */
-const isDev = process.env.NODE_ENV !== 'production'
 
+const isDev = process.env.NODE_ENV !== 'production'
+/** @type {import('next').NextConfig}**/
 const nextConfig = {
   pageExtensions: ['page.tsx', 'api.ts', 'index.tsx'],
   reactStrictMode: true,
@@ -25,6 +23,15 @@ const nextConfig = {
     styledComponents: true,
   },
   i18n,
+  pwa: {
+    dest: 'public',
+    disable: process.env.NODE_ENV === 'development',
+    runtimeCaching,
+    // register: true,
+    // scope: '/app',
+    // sw: 'sw.js',
+    //...
+  },
   webpack: (config, { isServer }) => {
     // audio support
     config.module.rules.push({
@@ -54,23 +61,12 @@ const nextConfig = {
   },
 }
 
-const defaultConfig = {}
+/** @type {import('next').NextConfig} */
 
-module.exports = withPlugins(
-  [
-    [withBundleAnalyzer, {}],
-    [
-      withPWA,
-      {
-        dest: 'public',
-        disable: process.env.NODE_ENV === 'development',
-        runtimeCaching,
-        // register: true,
-        // scope: '/app',
-        // sw: 'sw.js',
-        //...
-      },
-    ],
-  ],
-  nextConfig
-)
+module.exports = () => {
+  const plugins = [withPWA, withBundleAnalyzer]
+  const config = plugins.reduce((acc, next) => next(acc), {
+    ...nextConfig,
+  })
+  return config
+}
