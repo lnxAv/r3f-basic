@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import globalVariants from '../../@styles/motion.variants'
 import { XGUI } from '../../@components/x/x-gui/component'
 import Head from 'next/head'
+import { useTranslation } from 'next-i18next'
 
 const Div = styled(motion.div)`
   position: relative;
@@ -22,6 +23,7 @@ const Div = styled(motion.div)`
 `
 
 const Test: XPage = (props: any) => {
+  const { i18n } = useTranslation()
   const [router] = useGlobalStore((state) => [state.router])
   // render data
   return (
@@ -30,7 +32,7 @@ const Test: XPage = (props: any) => {
         <title>Rhombic Dodecahedron</title>
       </Head>
       <Div {...globalVariants.default}>
-        <h1>Rhombic Dodecahedron</h1>
+        <h1>{props.title}</h1>
         {props.data?.map((content: any, i: number) => (
           <div key={i} dangerouslySetInnerHTML={{ __html: content }} />
         ))}
@@ -73,15 +75,29 @@ const Test: XPage = (props: any) => {
             {`< test2 />`}
           </a>
           <br />
+          <a
+            href=''
+            onClick={(e) => {
+              e.preventDefault()
+              router?.push('/test', '/test', {
+                locale: props.locale === 'en' ? 'fr' : 'en',
+              })
+            }}
+          >
+            {`< ${props.locale === 'en' ? 'fr' : 'en'} />`}
+          </a>
+          <br />
         </div>
       </Div>
     </>
   )
 }
 
-export async function getStaticProps() {
-  const url =
-    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Rhombic_dodecahedron'
+export async function getStaticProps({ locale }: any) {
+  const title =
+    locale === 'en' ? 'Rhombic_dodecahedron' : 'Dodécaèdre_rhombique'
+  const url = `https://${locale}.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=${title}`
+
   const res = await fetch(url)
   const posts = await res.json()
   const extractAPIContents = (json: any) => {
@@ -92,7 +108,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      title: 'Rhombic dodecahedron',
+      locale,
+      title: title,
       data: extractAPIContents(posts),
     },
   }

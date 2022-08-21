@@ -22,7 +22,7 @@ const Test2: XPage = (props: any) => {
   return (
     <>
       <Div>
-        <h1>Tetrahedron</h1>
+        <h1>{props.title}</h1>
 
         {props.data?.map((content: any, i: number) => (
           <motion.div
@@ -49,15 +49,27 @@ const Test2: XPage = (props: any) => {
             {`< test />`}
           </a>
           <br />
+          <a
+            href=''
+            onClick={(e) => {
+              e.preventDefault()
+              router?.push('/test2', '/test2', {
+                locale: props.locale === 'en' ? 'fr' : 'en',
+              })
+            }}
+          >
+            {`< ${props.locale === 'en' ? 'fr' : 'en'} />`}
+          </a>
+          <br />
         </div>
       </Div>
     </>
   )
 }
 
-export async function getServerSideProps() {
-  const url =
-    'https://en.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=Tetrahedron'
+export async function getServerSideProps({ locale }: any) {
+  const title = locale === 'en' ? 'Tetrahedron' : 'Tétraèdre'
+  const url = `https://${locale}.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=${title}`
   const res = await fetch(url)
   const posts = await res.json()
   const extractAPIContents = (json: any) => {
@@ -68,7 +80,8 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      title: 'Tetrahedron',
+      locale,
+      title: title,
       data: extractAPIContents(posts),
     },
   }
