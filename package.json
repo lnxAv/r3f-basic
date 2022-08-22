@@ -1,9 +1,6 @@
 {
   "name": "@lnxav/r3f-basic",
   "version": "0.9.0",
-  "bin": {
-    "r3f-basic": ".bin/cli.js"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
